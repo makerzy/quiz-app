@@ -1,0 +1,126 @@
+<ion-header collapse="condense">
+  <ion-toolbar>
+    <ion-title size="large">Quiz</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<div *ngIf="currentQuestion as question">
+  <mat-card>
+    <mat-card-title>
+      {{ question.text }}
+    </mat-card-title>
+    <mat-hint>
+      YOUR RESPONSE:
+    </mat-hint>
+
+    <mat-card-content>
+      <mat-radio-group [(ngModel)]="selectedOption">
+        <mat-list *ngFor="let option of question.options">
+          <mat-grid-list cols="12">
+            <mat-grid-tile colspan="1">
+              <mat-radio-button
+                slot="start"
+                color="primary"
+                [value]="option.id"
+              >
+              </mat-radio-button>
+            </mat-grid-tile>
+
+            <mat-grid-tile colspan="11">
+              <h3 [innerHTML]="option.text"></h3>
+            </mat-grid-tile>
+          </mat-grid-list>
+        </mat-list>
+      </mat-radio-group>
+    </mat-card-content>
+    <button
+      mat-raised-button
+      [disabled]="!selectedOption"
+      (click)="submit(question)"
+      color="primary"
+    >
+      Submit
+    </button>
+  </mat-card>
+</div>
+
+<div *ngIf="currentQuestion.responseId && currentQuestion as question">
+  <mat-card>
+    <mat-card-title>
+      {{ question.text }}
+    </mat-card-title>
+    <div>
+      <mat-hint>
+        YOUR PEERS RESPONSE:
+      </mat-hint>
+    </div>
+    <button class="learn-more" color="primary" mat-button (click)="setRoute()">
+      Learn more...
+    </button>
+
+    <mat-card-content>
+      <mat-list *ngFor="let option of question.options">
+        <mat-grid-list cols="12">
+          <mat-grid-tile colspan="1">
+            <span *ngIf="question.correctAnswerId === option.id">
+              <mat-icon color="primary">done_outline</mat-icon>
+            </span>
+            <span *ngIf="question.correctAnswerId !== option.id">
+              <mat-icon color="accent">clear</mat-icon>
+            </span>
+          </mat-grid-tile>
+
+          <mat-grid-tile colspan="11">
+            <h3
+              [ngClass]="{
+                'green-text': question.correctAnswerId === option.id,
+                'red-text': question.correctAnswerId !== option.id
+              }"
+              innerHTML="{{ option.text }}"
+            ></h3>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="1"></mat-grid-tile>
+          <mat-grid-tile colspan="11">
+            <mat-hint>{{ option.info }}</mat-hint>
+          </mat-grid-tile>
+        </mat-grid-list>
+        <mat-grid-list cols="12">
+          <mat-grid-tile colspan="11">
+            <mat-progress-bar
+              color="primary"
+              [value]="option.userSelectionPercentage"
+            ></mat-progress-bar>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="1">
+            {{ option.userSelectionPercentage }}%
+          </mat-grid-tile>
+        </mat-grid-list>
+        <mat-divider></mat-divider>
+      </mat-list>
+    </mat-card-content>
+    <div class="spacer"></div>
+
+    <mat-card-actions>
+      <button
+        [disabled]="count <= 1"
+        mat-stroked-button
+        (click)="back()"
+        shape="round"
+        color="primary"
+      >
+        <mat-icon color="primary">arrow_back</mat-icon> Back
+      </button>
+
+      <button
+        *ngIf="count !== questions?.length + 1"
+        class="right"
+        mat-stroked-button
+        (click)="forward()"
+        color="primary"
+      >
+        Next
+        <mat-icon>arrow_forward</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

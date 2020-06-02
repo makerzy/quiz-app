@@ -1,20 +1,17 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+    <ion-row>
+      <ion-title>
+        Quiz
+      </ion-title>
+      <ion-text class="ion-margin-end">
+        <h4>Score: {{score}}/{{questions?.length}}</h4>
+      </ion-text>
+    </ion-row>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <app-questions *ngIf="questions" [questions]="questions" (sendScore)="getScore($event)"
+    (sendQuestions)="retrieveQuestions($event)"></app-questions>
 </ion-content>

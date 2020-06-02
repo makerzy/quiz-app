@@ -1,0 +1,25 @@
+<mat-toolbar color="primary">
+  <span>Content Page</span>
+</mat-toolbar>
+
+<ion-content>
+  <mat-card>
+    <mat-card-title>
+      {{header}}
+    </mat-card-title>
+
+    <mat-card-content>
+      <app-image *ngIf="contents" [contents]="contents"></app-image>
+      <h3>{{introduction}}</h3>
+      <h2>{{subHeader}}</h2>
+      <h3>{{mainContent}}</h3>
+      <section class="video">
+        <app-video *ngIf="contents" [contents]="contents"></app-video>
+      </section>
+      <h3 class="padding-top">{{conclusion}}</h3>
+      <section>
+        <app-youtube *ngIf="contents" [contents]="contents"></app-youtube>
+      </section>
+    </mat-card-content>
+  </mat-card>
+</ion-content>

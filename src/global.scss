@@ -24,3 +24,17 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+
+.red-text {
+  color: var(--ion-color-danger);
+}
+
+.green-text {
+  color: var(--ion-color-success);
+}
+
+mat-card {
+  max-width: 740px;
+  margin: auto;
+}
