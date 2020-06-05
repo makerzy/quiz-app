@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from "@angular/core";
-import { ContentService } from "../content.service";
+
 import { ContentObject } from "../../interfaces/question.interface";
 
 @Component({
@@ -10,7 +10,7 @@ import { ContentObject } from "../../interfaces/question.interface";
 export class ImageComponent implements OnInit {
   @Input() currentImage: string;
 
-  constructor(private contentService: ContentService) {}
+  constructor() {}
 
   ngOnInit() {
     // console.log(this.contents);

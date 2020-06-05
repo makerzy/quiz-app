@@ -16,7 +16,7 @@
         </section>
 
         <section>
-          <app-youtube *ngIf="content.type === 'youtube'" [contents]="content.url"></app-youtube>
+          <app-youtube *ngIf="content.type === 'youtube'" [youtubeId]="content.url"></app-youtube>
         </section>
       </mat-card-content>
     </div>

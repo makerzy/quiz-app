@@ -1,5 +1,4 @@
 import { Component, OnInit } from "@angular/core";
-import { ContentService } from "../content.service";
 import { ContentObject } from "../../interfaces/question.interface";
 import { QuestionListService } from "src/app/services/question-list/question-list.service";
 
@@ -35,7 +34,6 @@ export class ContentPage implements OnInit {
       this.param = params[1].split("=")[1];
       const id = params[0].split("/");
       this.optionId = id[id.length - 1];
-      console.log(this.param, id, this.optionId);
     }
   }
 }

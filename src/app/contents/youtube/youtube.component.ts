@@ -2,7 +2,6 @@ import { Component, OnInit, AfterViewInit, Input } from "@angular/core";
 import { YoutubePlayerWeb } from "capacitor-youtube-player";
 
 import { Plugins, Capacitor } from "@capacitor/core";
-import { Content } from "src/app/interfaces/content.interface";
 
 @Component({
   selector: "app-youtube",
@@ -10,14 +9,14 @@ import { Content } from "src/app/interfaces/content.interface";
   styleUrls: ["./youtube.component.scss"],
 })
 export class YoutubeComponent implements OnInit {
-  @Input() contents: Content;
+  @Input()
   youtubeId: string;
   constructor() {}
 
   ngOnInit() {
-    let arr = this.contents.video.split("/");
+    let arr = this.youtubeId.split("/");
     console.log(arr);
-    this.youtubeId = this.contents.video.split("/")[arr.length - 1];
+    this.youtubeId = this.youtubeId.split("/")[arr.length - 1];
   }
   ngAfterViewInit() {
     if (Capacitor.platform === "web") {

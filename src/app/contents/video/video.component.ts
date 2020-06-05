@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, AfterViewInit } from "@angular/core";
 import { VideoPlayer, VideoOptions } from "@ionic-native/video-player";
 
-import { ContentService } from "../content.service";
 import { DomSanitizer } from "@angular/platform-browser";
 import { Plugins } from "@capacitor/core";
 import * as PluginsLibrary from "capacitor-video-player";
@@ -15,13 +14,10 @@ const { CapacitorVideoPlayer, Device } = Plugins;
 export class VideoComponent implements OnInit {
   videoPlayer: any;
   @Input() url: string;
-  // _url: "https://www.dropbox.com/s/0i7sps1m41tipyg/OAC_5_Funnel1.mp4?dl=0";
 
   constructor(private sanitizer: DomSanitizer) {}
 
-  ngOnInit() {
-    console.log(this.url);
-  }
+  ngOnInit() {}
 
   async ngAfterViewInit() {
     const info = await Device.getInfo();
@@ -29,8 +25,9 @@ export class VideoComponent implements OnInit {
       this.videoPlayer = CapacitorVideoPlayer;
     } else {
       this.videoPlayer = PluginsLibrary.CapacitorVideoPlayer;
-      this.play(this.url);
     }
+    this.play(this.url);
+    console.log(this.url);
   }
   async play(_url: string) {
     document.addEventListener(
@@ -62,5 +59,6 @@ export class VideoComponent implements OnInit {
       url: _url,
       componentTag: "app-video",
     });
+    console.log(res);
   }
 }
