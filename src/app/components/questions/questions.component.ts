@@ -5,11 +5,8 @@ import {
   Output,
   EventEmitter,
 } from "@angular/core";
-import {
-  Question,
-  QuestionOption,
-} from "src/app/interfaces/question.interface";
-import { ActivatedRoute, Router } from "@angular/router";
+import { Question } from "src/app/interfaces/question.interface";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-questions",
@@ -23,8 +20,11 @@ export class QuestionsComponent implements OnChanges {
   sendQuestions: EventEmitter<Question[]> = new EventEmitter();
   @Output()
   sendScore: EventEmitter<number> = new EventEmitter();
+  @Output()
+  sendCount: EventEmitter<number> = new EventEmitter();
   route: string;
   count: number = 1;
+  isSubmitted: boolean = false;
 
   currentQuestion: Question;
   selectedOption: string;
@@ -35,6 +35,7 @@ export class QuestionsComponent implements OnChanges {
   ngOnChanges() {
     if (!this.currentQuestion) this.setCurrentQuestion();
     this.sendScore.emit(this.score);
+    this.sendCount.emit(this.count);
     console.log(this.questions);
   }
 
@@ -42,12 +43,12 @@ export class QuestionsComponent implements OnChanges {
     this.currentQuestion = this.questions[this.count - 1];
   }
 
-  setRoute() {
-    this.route = `content/${this.currentQuestion.id}`;
-    this.router.navigate(["/content/"], {
+  setRoute(id: string) {
+    console.log(id);
+    this.route = `content/${id}`;
+    this.router.navigate([`/content/${id}/`], {
       queryParams: { page: this.currentQuestion.id },
     });
-    console.log(this.route);
   }
 
   setSelectedOption() {
@@ -62,17 +63,21 @@ export class QuestionsComponent implements OnChanges {
     this.count--;
     this.setCurrentQuestion();
     this.setSelectedOption();
+    this.sendCount.emit(this.count);
   }
 
   forward() {
+    this.isSubmitted = false;
     this.count++;
     if (this.count === this.questions.length + 1) {
       return this.sendQuestions.emit(this.questions);
     }
+    this.sendCount.emit(this.count);
     this.setCurrentQuestion();
   }
 
   submit(question: Question) {
+    this.isSubmitted = true;
     question.isCorrect = this.determineIsCorrect();
     this.sendScore.emit(this.score);
     question.responseId = this.selectedOption;

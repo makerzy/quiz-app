@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { ContentService } from "../content.service";
-import { Content } from "../../interfaces/content.interface";
+import { ContentObject } from "../../interfaces/question.interface";
 
 @Component({
   selector: "app-image",
@@ -8,17 +8,17 @@ import { Content } from "../../interfaces/content.interface";
   styleUrls: ["./image.component.scss"],
 })
 export class ImageComponent implements OnInit {
-  count: number = 0;
+  @Input() currentImage: string;
 
-  currentImage: string;
-  @Input()
-  contents: Content;
   constructor(private contentService: ContentService) {}
 
   ngOnInit() {
-    if (!this.currentImage) this.getCurrentImage();
+    // console.log(this.contents);
+    // if (!this.currentImage) this.getCurrentImage();
   }
-  getCurrentImage() {
-    this.currentImage = this.contents.image;
-  }
+  // getCurrentImage() {
+  //   for (let i = 0; i < this.contents.length; i++) {
+  //     this.currentImage = this.contents[i].url;
+  //   }
+  // }
 }

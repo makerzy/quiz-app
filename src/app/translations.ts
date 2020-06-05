@@ -1,62 +1,63 @@
 export const translations = {
   en: {
     questions: {
-      Text1:
-        "Which of the following is most accurate regarding aortic stenosis?",
-      Text2:
-        "Which of the following is most accurate regarding aortic stenosis?",
+      caseStudy:
+        "A 28 year-old male has complaints of right anterior thigh and knee pain. Symptoms began 3 weeks ago without mechanism. The symptoms are intermittent and appear to be worse with prolong sitting, rising, the first few steps of ambulation, and with ADLs requiring bending (bathing, grooming, dressing, etc.). When questioned, the patient does describe obstruction with his current condition.",
+      Text1: "Based on the history, what is the provisional classification?",
+      Text2: "All of the following must be tested during the exam except:",
       Text3:
-        "Which of the following is most accurate regarding aortic regurgitation?",
+        "The following baselines have been established: EIS loss of 50% w/ space occupation, R SGIS loss of 25% w/ localized R LBP, (+) femoral tension, and hip flexor MMT on R: 3+/5. No other significant baselines were established. Testing focus should begin with:",
+      Text4:
+        "The repeated movement exam began with REIL and had NE. After adding OP to the lower L/S and minimal changes were noted, what would the next step be?",
     },
     options: {
-      a1Text:
-        "Most patients with a congenital bicuspid aortic valve who develop symptoms of aortic stenosis present before age 20 years",
+      a1Text: "Derangement",
       a1Info:
-        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ullam temporibus culpa deleniti! Delectus reprehenderit nesciunt omnis accusamus reiciendis repellat dolorem.",
-      a2Text:
-        "Symptoms of aortic stenosis more commonly occur at rest as opposed to during exertion, unlike other forms of heart valve disease",
+        "Primary clue is the patient describing obstruction combined with the history",
+      a2Text: "Lateral Recess Stenosis",
       a2Info:
-        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ullam temporibus culpa deleniti! Delectus reprehenderit nesciunt omnis accusamus reiciendis repellat dolorem.",
-      a3Text:
-        "Two-dimensional echocardiography is used to confirm the clinical diagnosis of aortic stenosis and provide specific data on left ventricular (LV) function",
+        "Although pain is intermittent, time frame and worse sections are inconsistent with stenosis",
+      a3Text: "ANR",
       a3Info:
-        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ullam temporibus culpa deleniti! Delectus reprehenderit nesciunt omnis accusamus reiciendis repellat dolorem.",
-      a4Text:
-        "Intervention is routinely required in patients with high-gradient severe aortic stenosis, regardless of whether they are asymptomatic",
+        "Although pain is intermittent, time frame and worse sections are inconsistent with an ANR",
+      a4Text: "Knee (Peripheral) Contractile Dysfunction",
       a4Info:
-        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ullam temporibus culpa deleniti! Delectus reprehenderit nesciunt omnis accusamus reiciendis repellat dolorem.",
-      b1Text:
-        "Mitral facies (pinkish-purple patches on the cheeks) are associated with chronic severe mitral stenosis",
+        "Unlikely given the time frame combined with the unknown mechanism of injury. Also, non-contractile activities (i.e sitting) should not be a pain producer",
+      b1Text: "L/S Extension",
       b1Info:
-        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ullam temporibus culpa deleniti! Delectus reprehenderit nesciunt omnis accusamus reiciendis repellat dolorem.",
-      b2Text:
-        "The most common causes of mitral stenosis are systemic lupus erythematosus and rheumatoid arthritis",
+        "important baseline to confirm  L/S involvement. Look for space occupation, obstruction, and/or motion loss",
+      b2Text: "Knee function (i.e squat/stairs)",
       b2Info:
-        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ullam temporibus culpa deleniti! Delectus reprehenderit nesciunt omnis accusamus reiciendis repellat dolorem.",
-      b3Text:
-        "Transthoracic echocardiography (TTE) is preferred over transesophageal echocardiography (TEE) in patients with mitral stenosis",
+        "Although different on a case by case bases this should be assessed given the patient’s complaints of difficulty w/ ADLs. Also an important way to get buy-in if the patient has preconceived notions of a knee or contractile problem.",
+      b3Text: "Sciatic Tension (Flip Test)",
       b3Info:
-        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ullam temporibus culpa deleniti! Delectus reprehenderit nesciunt omnis accusamus reiciendis repellat dolorem.",
-      b4Text:
-        "Dabigatran and rivaroxaban are the preferred drugs for anticoagulation in patients with mild mitral stenosis and atrial fibrillation who are successfully converted to sinus rhythm",
+        "Given the location of pain (anterior thigh and knee), sciatic nerve involvement is unlikely",
+      b4Text: "Femoral Tension",
       b4Info:
-        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ullam temporibus culpa deleniti! Delectus reprehenderit nesciunt omnis accusamus reiciendis repellat dolorem.",
-      c1Text:
-        "Aortic regurgitation is twice as common among women than among men",
+        "Pain located to the anterior thigh must be tested for femoral tension",
+      c1Text: "Right SGIS",
       c1Info:
-        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ullam temporibus culpa deleniti! Delectus reprehenderit nesciunt omnis accusamus reiciendis repellat dolorem.",
-      c2Text:
-        "Common symptoms of acute aortic regurgitation include bradycardia and peripheral vasodilation",
+        "Extension must be fully explored including repeated patient generated, clinician generated pressure, and mid/upper L/S",
+      c2Text: "REIL",
       c2Info:
-        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ullam temporibus culpa deleniti! Delectus reprehenderit nesciunt omnis accusamus reiciendis repellat dolorem.",
-      c3Text:
-        "Cardiac CT and MRI are considered first-line imaging studies for the assessment of aortic regurgitation",
+        "Given the patient’s age, REIL should be the initial test movement unless the physical exam reveal otherwise ",
+      c3Text: "Knee Unloaded Extension",
       c3Info:
-        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ullam temporibus culpa deleniti! Delectus reprehenderit nesciunt omnis accusamus reiciendis repellat dolorem.",
-      c4Text:
-        "Vasodilator therapy is acceptable for long-term therapy in asymptomatic patients with severe aortic regurgitation and LV dilation with normal ejection fraction",
+        "Baseline strongly suggest L/S and at this time their is no evidence for a localized knee condition ",
+      c4Text: "REIS (over a fulcrum)",
       c4Info:
-        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ullam temporibus culpa deleniti! Delectus reprehenderit nesciunt omnis accusamus reiciendis repellat dolorem.",
+        "Extension in lying should always be consider first. Other factors may play a role in beginning with REIS (fulcrum) however there are no indication of this.",
+      d1Text: "R SGIS patient generated pressure",
+      d1Info: "Extension has NOT been fully explored ",
+      d2Text: "R SGIS clinician generated pressure (manual shift correction)",
+      d2Info: "Extension has NOT been fully explored ",
+      d3Text: "Upper L/S Extension with overpressure",
+      d3Info:
+        "Pain location suggests mid-upper L/S involvement. If initial Lower L/S testing reveals NE, further explore the mid-upper L/S before considering lateral ",
+      d4Text:
+        "Pain location suggests mid-upper L/S involvement. If initial Lower L/S testing reveals NE, further explore the mid-upper L/S before considering lateral ",
+      d4Info:
+        "Stopping the exam at this point and testing will not provide value to you or the patient.Continue through force and direction progressions until a change is CLEARLY noted.",
     },
   },
 };

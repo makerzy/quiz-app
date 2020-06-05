@@ -1,17 +1,19 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-row>
-      <ion-title>
-        Quiz
-      </ion-title>
-      <ion-text class="ion-margin-end">
-        <h4>Score: {{score}}/{{questions?.length}}</h4>
-      </ion-text>
-    </ion-row>
-  </ion-toolbar>
+
+
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <span>Quiz</span>
+      <span class="spacer"></span>
+      <span class="count">Question: #{{count}}</span>
+      <span>Score: {{score}}/{{questions?.length}}</span>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <app-questions *ngIf="questions" [questions]="questions" (sendScore)="getScore($event)"
+  <app-questions *ngIf="questions" [questions]="questions" (sendCount)="getCount($event)" (sendScore)="getScore($event)"
     (sendQuestions)="retrieveQuestions($event)"></app-questions>
 </ion-content>

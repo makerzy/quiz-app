@@ -3,23 +3,25 @@
 </mat-toolbar>
 
 <ion-content>
-  <mat-card>
-    <mat-card-title>
-      {{header}}
-    </mat-card-title>
+  <mat-card *ngIf="currentContents">
+    <div *ngFor="let content of currentContents">
+      <mat-card-title>
+        {{content.text}}
+      </mat-card-title>
+      <mat-card-content>
+        <app-image *ngIf="content.type==='image'" [currentImage]="content.url"></app-image>
 
-    <mat-card-content>
-      <app-image *ngIf="contents" [contents]="contents"></app-image>
-      <h3>{{introduction}}</h3>
-      <h2>{{subHeader}}</h2>
-      <h3>{{mainContent}}</h3>
-      <section class="video">
-        <app-video *ngIf="contents" [contents]="contents"></app-video>
-      </section>
-      <h3 class="padding-top">{{conclusion}}</h3>
-      <section>
-        <app-youtube *ngIf="contents" [contents]="contents"></app-youtube>
-      </section>
-    </mat-card-content>
+        <section class="video">
+          <app-video *ngIf="content.type === 'video'" [url]="content.url"></app-video>
+        </section>
+
+        <section>
+          <app-youtube *ngIf="content.type === 'youtube'" [contents]="content.url"></app-youtube>
+        </section>
+      </mat-card-content>
+    </div>
+
   </mat-card>
+
+
 </ion-content>

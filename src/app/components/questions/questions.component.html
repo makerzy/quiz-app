@@ -5,10 +5,15 @@
 </ion-header>
 
 <div *ngIf="currentQuestion as question">
+
   <mat-card>
-    <mat-card-title>
+    <div>
+      <h3>{{questions[0].caseStudy}}</h3>
+    </div>
+
+    <h3>
       {{ question.text }}
-    </mat-card-title>
+    </h3>
     <mat-hint>
       YOUR RESPONSE:
     </mat-hint>
@@ -18,27 +23,21 @@
         <mat-list *ngFor="let option of question.options">
           <mat-grid-list cols="12">
             <mat-grid-tile colspan="1">
-              <mat-radio-button
-                slot="start"
-                color="primary"
-                [value]="option.id"
-              >
+              <mat-radio-button [disabled]="question.responseId && isSubmitted" slot="start" color="primary"
+                [value]="option.id">
               </mat-radio-button>
             </mat-grid-tile>
 
             <mat-grid-tile colspan="11">
-              <h3 [innerHTML]="option.text"></h3>
+              <h4 [ngClass]="{
+                'green-text':option.id=== question.correctAnswerId&& selectedOption===question.correctAnswerId && isSubmitted
+              }" [innerHTML]="option.text"></h4>
             </mat-grid-tile>
           </mat-grid-list>
         </mat-list>
       </mat-radio-group>
     </mat-card-content>
-    <button
-      mat-raised-button
-      [disabled]="!selectedOption"
-      (click)="submit(question)"
-      color="primary"
-    >
+    <button mat-raised-button [disabled]="!selectedOption" (click)="submit(question)" color="primary">
       Submit
     </button>
   </mat-card>
@@ -46,24 +45,19 @@
 
 <div *ngIf="currentQuestion.responseId && currentQuestion as question">
   <mat-card>
-    <mat-card-title>
-      {{ question.text }}
-    </mat-card-title>
     <div>
       <mat-hint>
         YOUR PEERS RESPONSE:
       </mat-hint>
     </div>
-    <button class="learn-more" color="primary" mat-button (click)="setRoute()">
-      Learn more...
-    </button>
+
 
     <mat-card-content>
       <mat-list *ngFor="let option of question.options">
         <mat-grid-list cols="12">
           <mat-grid-tile colspan="1">
             <span *ngIf="question.correctAnswerId === option.id">
-              <mat-icon color="primary">done_outline</mat-icon>
+              <mat-icon color="primary">done</mat-icon>
             </span>
             <span *ngIf="question.correctAnswerId !== option.id">
               <mat-icon color="accent">clear</mat-icon>
@@ -71,28 +65,29 @@
           </mat-grid-tile>
 
           <mat-grid-tile colspan="11">
-            <h3
-              [ngClass]="{
+            <p [ngClass]="{
                 'green-text': question.correctAnswerId === option.id,
                 'red-text': question.correctAnswerId !== option.id
-              }"
-              innerHTML="{{ option.text }}"
-            ></h3>
+              }" innerHTML="{{ option.text }}"></p>
           </mat-grid-tile>
           <mat-grid-tile colspan="1"></mat-grid-tile>
           <mat-grid-tile colspan="11">
+
             <mat-hint>{{ option.info }}</mat-hint>
+
           </mat-grid-tile>
         </mat-grid-list>
         <mat-grid-list cols="12">
-          <mat-grid-tile colspan="11">
-            <mat-progress-bar
-              color="primary"
-              [value]="option.userSelectionPercentage"
-            ></mat-progress-bar>
+          <mat-grid-tile colspan="8">
+            <mat-progress-bar color="primary" [value]="option.userSelectionPercentage"></mat-progress-bar>
           </mat-grid-tile>
           <mat-grid-tile colspan="1">
             {{ option.userSelectionPercentage }}%
+          </mat-grid-tile>
+          <mat-grid-tile colspan="3">
+            <button id="learn-more" color="primary" mat-button (click)="setRoute(option.id)">
+              Learn more...
+            </button>
           </mat-grid-tile>
         </mat-grid-list>
         <mat-divider></mat-divider>
@@ -101,23 +96,12 @@
     <div class="spacer"></div>
 
     <mat-card-actions>
-      <button
-        [disabled]="count <= 1"
-        mat-stroked-button
-        (click)="back()"
-        shape="round"
-        color="primary"
-      >
+      <button [disabled]="count <= 1" mat-stroked-button (click)="back()" shape="round" color="primary">
         <mat-icon color="primary">arrow_back</mat-icon> Back
       </button>
 
-      <button
-        *ngIf="count !== questions?.length + 1"
-        class="right"
-        mat-stroked-button
-        (click)="forward()"
-        color="primary"
-      >
+      <button *ngIf="count !== questions?.length + 1" class="right" mat-stroked-button (click)="forward()"
+        color="primary">
         Next
         <mat-icon>arrow_forward</mat-icon>
       </button>
