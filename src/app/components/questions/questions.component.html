@@ -4,6 +4,22 @@
   </ion-toolbar>
 </ion-header>
 
+<div *ngIf="platformWidth > 699">
+  <ion-fab vertical="center" horizontal="start" slot="fixed">
+
+    <ion-fab-button [hidden]="count <= 1" (click)="back()" shape="round" color="primary">
+      <ion-icon name="arrow-back-circle"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-fab vertical="center" horizontal="end" slot="fixed">
+
+    <ion-fab-button *ngIf="count !== questions?.length + 1 " class="right" (click)="forward()" color="primary">
+      <ion-icon name="arrow-forward-circle"></ion-icon>
+
+    </ion-fab-button>
+  </ion-fab>
+</div>
+
 <div *ngIf="currentQuestion as question">
 
   <mat-card>
@@ -14,32 +30,34 @@
     <h3>
       {{ question.text }}
     </h3>
-    <mat-hint>
-      YOUR RESPONSE:
-    </mat-hint>
+    <button mat-raised-button *ngIf="isSubmitted" class="right" (click)="open=!open">SEE YOUR RESPONSE</button>
+    <div [hidden]="!open">
+      <mat-card-content>
+        <mat-radio-group [(ngModel)]="selectedOption">
+          <mat-list *ngFor="let option of question.options">
+            <mat-grid-list cols="12">
+              <mat-grid-tile colspan="1">
+                <mat-radio-button [disabled]="question.responseId && isSubmitted" slot="start" color="primary"
+                  [value]="option.id">
+                </mat-radio-button>
+              </mat-grid-tile>
 
-    <mat-card-content>
-      <mat-radio-group [(ngModel)]="selectedOption">
-        <mat-list *ngFor="let option of question.options">
-          <mat-grid-list cols="12">
-            <mat-grid-tile colspan="1">
-              <mat-radio-button [disabled]="question.responseId && isSubmitted" slot="start" color="primary"
-                [value]="option.id">
-              </mat-radio-button>
-            </mat-grid-tile>
-
-            <mat-grid-tile colspan="11">
-              <h4 [ngClass]="{
-                'green-text':option.id=== question.correctAnswerId&& selectedOption===question.correctAnswerId && isSubmitted
+              <mat-grid-tile colspan="11">
+                <h4 class="max-width zero" [ngClass]="{
+                'green-text':selectedOption=== option.id && option.id===question.correctAnswerId &&
+                isSubmitted, 'red-text':selectedOption === option.id && option.id !==
+                question.correctAnswerId && isSubmitted
               }" [innerHTML]="option.text"></h4>
-            </mat-grid-tile>
-          </mat-grid-list>
-        </mat-list>
-      </mat-radio-group>
-    </mat-card-content>
-    <button mat-raised-button [disabled]="!selectedOption" (click)="submit(question)" color="primary">
-      Submit
-    </button>
+              </mat-grid-tile>
+            </mat-grid-list>
+          </mat-list>
+        </mat-radio-group>
+      </mat-card-content>
+      <button mat-raised-button [disabled]="!selectedOption" (click)="submit(question)" color="primary">
+        Submit
+      </button>
+    </div>
+
   </mat-card>
 </div>
 
@@ -57,7 +75,7 @@
         <mat-grid-list cols="12">
           <mat-grid-tile colspan="1">
             <span *ngIf="question.correctAnswerId === option.id">
-              <mat-icon color="primary">done</mat-icon>
+              <mat-icon class="green-text">done</mat-icon>
             </span>
             <span *ngIf="question.correctAnswerId !== option.id">
               <mat-icon color="accent">clear</mat-icon>
@@ -65,7 +83,7 @@
           </mat-grid-tile>
 
           <mat-grid-tile colspan="11">
-            <p [ngClass]="{
+            <p class="max-width" [ngClass]="{
                 'green-text': question.correctAnswerId === option.id,
                 'red-text': question.correctAnswerId !== option.id
               }" innerHTML="{{ option.text }}"></p>
@@ -73,7 +91,7 @@
           <mat-grid-tile colspan="1"></mat-grid-tile>
           <mat-grid-tile colspan="11">
 
-            <mat-hint>{{ option.info }}</mat-hint>
+            <mat-hint class="max-width">{{ option.info }}</mat-hint>
 
           </mat-grid-tile>
         </mat-grid-list>
@@ -95,16 +113,19 @@
     </mat-card-content>
     <div class="spacer"></div>
 
-    <mat-card-actions>
-      <button [disabled]="count <= 1" mat-stroked-button (click)="back()" shape="round" color="primary">
-        <mat-icon color="primary">arrow_back</mat-icon> Back
-      </button>
 
-      <button *ngIf="count !== questions?.length + 1" class="right" mat-stroked-button (click)="forward()"
-        color="primary">
-        Next
-        <mat-icon>arrow_forward</mat-icon>
-      </button>
-    </mat-card-actions>
   </mat-card>
+  <ion-footer *ngIf="platformWidth < 700">
+    <ion-toolbar>
+      <ion-buttons slot="start" (click)="back()">
+        <ion-button color="primary">Prev</ion-button>
+      </ion-buttons>
+      <ion-buttons slot="end" (click)="forward()">
+        <ion-button color="primary">
+          next
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-footer>
+
 </div>

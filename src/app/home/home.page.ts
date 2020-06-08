@@ -1,35 +1,35 @@
-import { Component, OnInit } from "@angular/core";
-import { Question } from "../interfaces/question.interface";
-import { QuestionListService } from "../services/question-list/question-list.service";
-import { v4 as uuid } from "uuid";
+import { Component, AfterViewInit } from "@angular/core";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-home",
   templateUrl: "home.page.html",
   styleUrls: ["home.page.scss"],
 })
-export class HomePage implements OnInit {
-  questions: Question[];
+export class HomePage implements AfterViewInit {
+  image: string = "/assets/images/home/image.jpg";
+  images: string[] = [
+    "assets/images/home/image.jpg",
+    "assets/images/home/image1.jpg",
+    "assets/images/home/image2.jpg",
+    "assets/images/home/image3.jpg",
+    "assets/images/home/image4.jpg",
+    "assets/images/home/image5.jpg",
+  ];
+  constructor(private router: Router) {}
 
-  questionGroupId = "pain";
-  score: number;
-  count: number;
-  constructor(private questionListService: QuestionListService) {}
+  ngAfterViewInit() {
+    this.setImage();
+  }
+  setImage() {
+    setInterval(() => {
+      const index = Math.round(Math.random() * 5);
 
-  ngOnInit() {
-    this.questions = this.questionListService.getQuestionsByGroupId(
-      this.questionGroupId
-    );
+      this.image = this.images[index];
+    }, 5000);
   }
 
-  getScore(event: number) {
-    this.score = event;
-  }
-  getCount(event: number) {
-    this.count = event;
-  }
-  retrieveQuestions(questions: Question[]) {
-    console.log(questions);
-    // send data to database
+  goToQuestion() {
+    this.router.navigate(["question"]);
   }
 }

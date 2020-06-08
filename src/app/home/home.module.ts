@@ -8,6 +8,8 @@ import { HomePageRoutingModule } from "./home-routing.module";
 
 import { MaterialModule } from "../material.module";
 import { ComponentsModule } from "../components/components/components.module";
+
+import { MediaContentModule } from "../contents/media-content/media-content.module";
 @NgModule({
   imports: [
     CommonModule,
@@ -16,6 +18,7 @@ import { ComponentsModule } from "../components/components/components.module";
     HomePageRoutingModule,
     ComponentsModule,
     MaterialModule,
+    MediaContentModule,
   ],
   declarations: [HomePage],
   exports: [],

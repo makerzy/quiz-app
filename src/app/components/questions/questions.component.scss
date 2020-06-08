@@ -7,21 +7,17 @@ ion-progress-bar {
 }
 
 .right {
-  float: right;
-  margin-right: 15px;
+  left: 75%;
 }
 
 #vp-container {
   margin: auto;
 }
 
-.spacer {
-  margin-bottom: 2.5em;
-}
-
-// mat-grid-tile p,
-// mat-grid-tile mat-hint {
-//   text-align: left;
-//   justify-content: left;
-//   align-items: flex-start;
+// .spacer {
+//   margin-bottom: 2.5em;
 // }
+
+.zero {
+  margin: 0;
+}

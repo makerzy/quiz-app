@@ -1,3 +1,10 @@
+export interface QuestionGroup {
+  topic: string;
+  case: string;
+  id: string;
+  questionIds: string[];
+}
+
 export interface Question {
   id: string;
   groupId: string;

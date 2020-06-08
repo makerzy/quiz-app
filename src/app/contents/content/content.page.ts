@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ContentObject } from "../../interfaces/question.interface";
-import { QuestionListService } from "src/app/services/question-list/question-list.service";
+import { QuestionListService } from "src/app/services/question-services/question-list.service";
 
 @Component({
   selector: "app-content",

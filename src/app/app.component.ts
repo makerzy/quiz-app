@@ -1,8 +1,10 @@
 import { Component } from "@angular/core";
+import { NavController } from "@ionic/angular";
 
-import { Platform } from "@ionic/angular";
-import { SplashScreen } from "@ionic-native/splash-screen/ngx";
-import { StatusBar } from "@ionic-native/status-bar/ngx";
+export interface URLParams {
+  questionGroupId?: string;
+  userEmail?: string;
+}
 
 @Component({
   selector: "app-root",
@@ -10,18 +12,43 @@ import { StatusBar } from "@ionic-native/status-bar/ngx";
   styleUrls: ["app.component.scss"],
 })
 export class AppComponent {
-  constructor(
-    private platform: Platform,
-    private splashScreen: SplashScreen,
-    private statusBar: StatusBar
-  ) {
+  urlParams = {} as URLParams;
+
+  constructor(private navCtrl: NavController) {
     this.initializeApp();
   }
 
-  initializeApp() {
-    this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
-      this.splashScreen.hide();
-    });
+  async initializeApp() {
+    this.getUrlParms();
+
+    if (this.urlParams.userEmail) {
+      // save email to database
+    }
+
+    if (this.urlParams.questionGroupId) {
+      // navigate to question page with the questionId as a param
+    }
+  }
+
+  getUrlParms() {
+    if (document.URL.indexOf("?") > 0) {
+      const paramString = document.URL.split("?")[1];
+      const params = paramString.split("&");
+      const paramMap = params.map((param) => {
+        const splitParam = param.split("=");
+        return {
+          key: splitParam[0],
+          value: splitParam[1],
+        };
+      });
+      const findEmail = paramMap.find(({ key }) => key === "email");
+      if (findEmail) this.urlParams.userEmail = findEmail.value;
+
+      const findQuestionGroupId = paramMap.find(
+        ({ key }) => key === "questionGroupId"
+      );
+      if (findQuestionGroupId)
+        this.urlParams.questionGroupId = findQuestionGroupId.value;
+    }
   }
 }

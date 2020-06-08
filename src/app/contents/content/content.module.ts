@@ -7,10 +7,9 @@ import { IonicModule } from "@ionic/angular";
 import { ContentPageRoutingModule } from "./content-routing.module";
 
 import { ContentPage } from "./content.page";
-import { ImageComponent } from "../image/image.component";
-import { VideoComponent } from "../video/video.component";
-import { YoutubeComponent } from "../youtube/youtube.component";
+
 import { MaterialModule } from "src/app/material.module";
+import { MediaContentModule } from "../media-content/media-content.module";
 
 @NgModule({
   imports: [
@@ -19,7 +18,8 @@ import { MaterialModule } from "src/app/material.module";
     IonicModule,
     MaterialModule,
     ContentPageRoutingModule,
+    MediaContentModule,
   ],
-  declarations: [ContentPage, ImageComponent, VideoComponent, YoutubeComponent],
+  declarations: [ContentPage],
 })
 export class ContentPageModule {}

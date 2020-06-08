@@ -19,6 +19,14 @@ const routes: Routes = [
         (m) => m.ContentPageModule
       ),
   },
+  {
+    path: 'question',
+    loadChildren: () => import('./question/question.module').then( m => m.QuestionPageModule)
+  },
+  {
+    path: 'review',
+    loadChildren: () => import('./review/review.module').then( m => m.ReviewPageModule)
+  },
 ];
 
 @NgModule({

@@ -1,0 +1,14 @@
+<ion-list>
+  <div *ngFor="let questionGroup of questionGroups">
+    <div class="questions" (click)="seeQuestion(questionGroup.id)">
+
+      <h2 [innerHTML]="questionGroup.topic"></h2>
+      <ion-item>
+        <p [innerHTML]="questionGroup.case | truncateText:100"></p>
+
+        <mat-divider></mat-divider>
+      </ion-item>
+    </div>
+  </div>
+
+</ion-list>

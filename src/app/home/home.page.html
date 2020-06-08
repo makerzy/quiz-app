@@ -3,10 +3,7 @@
 
   <mat-toolbar color="primary">
     <mat-toolbar-row>
-      <span>Quiz</span>
-      <span class="spacer"></span>
-      <span class="count">Question: #{{count}}</span>
-      <span>Score: {{score}}/{{questions?.length}}</span>
+      Home
     </mat-toolbar-row>
   </mat-toolbar>
 
@@ -14,6 +11,19 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <app-questions *ngIf="questions" [questions]="questions" (sendCount)="getCount($event)" (sendScore)="getScore($event)"
-    (sendQuestions)="retrieveQuestions($event)"></app-questions>
+  <div class="container">
+
+    <div class="image-container">
+
+      <app-image [currentImage]='image'></app-image>
+    </div>
+    <div class="overlay"></div>
+    <div class='some-text'>
+      <h1>JointStrong<span>&reg;</span></h1>
+      <p>CREATING THE IDEAL DIGITAL </p>
+      <p>MUSCULOSKELETAL CARE SOLUTION
+      </p>
+      <button mat-raised-button (click)="goToQuestion()" color="primary">Begin Test</button>
+    </div>
+  </div>
 </ion-content>
