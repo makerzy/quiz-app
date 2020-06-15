@@ -97,4 +97,8 @@ export class QuestionGroupService {
   getAllQuestionGroups() {
     return [...this.questionGroups];
   }
+
+  getQuestionGroup(_id: string) {
+    return this.questionGroups.filter(({ id }) => id === _id);
+  }
 }

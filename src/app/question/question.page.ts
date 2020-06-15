@@ -1,8 +1,10 @@
 import { Component, OnInit } from "@angular/core";
-import { Question } from "../interfaces/question.interface";
+import { Question, QuestionGroup } from "../interfaces/question.interface";
 import { QuestionListService } from "../services/question-services/question-list.service";
 
-import { Router } from "@angular/router";
+import { NavService } from "../services/nav.service";
+import { NavType } from "../components/prev-next/prev-next.component";
+import { QuestionGroupService } from "../services/question-services/question-group.service";
 
 @Component({
   selector: "app-question",
@@ -10,42 +12,77 @@ import { Router } from "@angular/router";
   styleUrls: ["./question.page.scss"],
 })
 export class QuestionPage implements OnInit {
+  questionGroupId: string;
+  questionGroup: QuestionGroup;
   questions: Question[];
-
-  questionGroupId: string = "pain";
-  score: number;
+  currentQuestion: Question;
+  score: number = 0;
   count: number;
+  open: boolean = true;
   constructor(
     private questionListService: QuestionListService,
-    private router: Router
+    private nav: NavService,
+    private questionGrpService: QuestionGroupService
   ) {}
 
   ngOnInit() {
-    this.getParams();
+    console.log("URL: ", document.URL);
+    this.questionGroupId = this.nav.get("questionGroupId")["id"];
+    console.log("QuestionGroupId: ", this.questionGroupId);
+    if (!this.questionGroupId) return this.returnToHome();
     this.questions = this.questionListService.getQuestionsByGroupId(
-      this.questionGroupId
+      this.questionGroupId.split("-")[0]
     );
+    this.getQuestionGroup();
+
+    this.reset();
   }
 
-  getParams() {
-    if (document.URL.includes("?")) {
-      const urlParams = document.URL.split("?")[1];
-      const question = urlParams.split("=")[1];
-      this.questionGroupId = question.split("-")[0];
-      console.log(urlParams, this.questionGroupId);
-    } else {
-      this.router.navigate(["question"]);
-    }
+  getQuestionGroup() {
+    this.questionGroup = this.questionGrpService.getQuestionGroup(
+      this.questionGroupId
+    )[0];
   }
 
-  getScore(event: number) {
-    this.score = event;
+  reset() {
+    this.count = 0;
+    this.setCurrentQuestion();
+  }
+
+  setCurrentQuestion() {
+    this.currentQuestion = this.questions[this.count];
+  }
+
+  returnToHome() {
+    this.nav.setRoot("home");
+  }
+
+  getScore(currentScore: number) {
+    this.score = currentScore;
   }
   getCount(event: number) {
     this.count = event;
   }
-  retrieveQuestions(questions: Question[]) {
-    console.log(questions);
-    // send data to database
+
+  retrieveNavType(navType: NavType) {
+    if (navType === NavType.back) {
+      this.count--;
+    } else {
+      this.count++;
+    }
+    this.open = true;
+    if (this.count > this.questions.length - 1)
+      return this.nav.push("review", {
+        queryParams: { score: this.score, total: this.questions.length },
+      });
+    return this.setCurrentQuestion();
+  }
+  retrieveQuestionResponse(question: Question) {
+    const index = this.questions.findIndex(({ id }) => id === question.id);
+    this.questions[index] = question;
+  }
+
+  retrieveNavRequest({ url, data }) {
+    this.nav.push(url, data);
   }
 }

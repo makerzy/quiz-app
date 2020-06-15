@@ -13,19 +13,21 @@ const routes: Routes = [
     pathMatch: "full",
   },
   {
-    path: "content/:id",
+    path: "content",
     loadChildren: () =>
       import("./contents/content/content.module").then(
         (m) => m.ContentPageModule
       ),
   },
   {
-    path: 'question',
-    loadChildren: () => import('./question/question.module').then( m => m.QuestionPageModule)
+    path: "question",
+    loadChildren: () =>
+      import("./question/question.module").then((m) => m.QuestionPageModule),
   },
   {
-    path: 'review',
-    loadChildren: () => import('./review/review.module').then( m => m.ReviewPageModule)
+    path: "review",
+    loadChildren: () =>
+      import("./review/review.module").then((m) => m.ReviewPageModule),
   },
 ];
 

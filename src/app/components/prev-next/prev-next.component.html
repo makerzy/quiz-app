@@ -1,0 +1,30 @@
+<div *ngIf="data && platformWidth > 699">
+  <ion-fab vertical="center" horizontal="start" slot="fixed">
+
+    <ion-fab-button [disabled]="data.disableBack" *ngIf="!data.hideBack" (click)="sendNav('back')" shape="round"
+      color="primary">
+      <ion-icon name="arrow-back-circle"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-fab vertical="center" horizontal="end" slot="fixed">
+
+    <ion-fab-button [disabled]="data.disableNext" *ngIf="!data.hideNext" (click)="sendNav('next')" color="primary">
+      <ion-icon name="arrow-forward-circle"></ion-icon>
+
+    </ion-fab-button>
+  </ion-fab>
+</div>
+
+<ion-footer *ngIf="data && platformWidth < 700">
+  <ion-toolbar>
+    <ion-buttons slot="start" *ngIf="data.hideBack" (click)="sendNav('back')">
+      <ion-button color="primary" [disabled]="data.disableBack">PREV</ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end" *ngIf="data.hideNext" (click)="sendNav('next')">
+      <ion-button color="primary" [disabled]="data.disableNext">
+        NEXT
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

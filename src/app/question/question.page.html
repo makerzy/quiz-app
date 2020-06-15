@@ -1,19 +1,28 @@
-<ion-header [translucent]="true">
+  <ion-header [translucent]="true">
+    <mat-toolbar color="primary">
+      <mat-toolbar-row>
+        <span>Quiz</span>
+        <span class="spacer"></span>
+        <span class="count">Question: #{{count +1 }}</span>
+        <span>Score: {{score}}/{{questions?.length}}</span>
+      </mat-toolbar-row>
+    </mat-toolbar>
+  </ion-header>
 
 
-  <mat-toolbar color="primary">
-    <mat-toolbar-row>
-      <span>Quiz</span>
-      <span class="spacer"></span>
-      <span class="count">Question: #{{count}}</span>
-      <span>Score: {{score}}/{{questions?.length}}</span>
-    </mat-toolbar-row>
-  </mat-toolbar>
 
 
-</ion-header>
+  <ion-content [fullscreen]="true">
 
-<ion-content [fullscreen]="true">
-  <app-questions *ngIf="questions" [questions]="questions" (sendCount)="getCount($event)" (sendScore)="getScore($event)"
-    (sendQuestions)="retrieveQuestions($event)"></app-questions>
-</ion-content>
+    <!-- Add Case Text Here -->
+    <div class="case">
+      <h3>{{questionGroup.case}}</h3>
+    </div>
+    <app-questions *ngIf="questions" [currentScore]="score" [currentQuestion]="currentQuestion"
+      (sendScore)="getScore($event)" (sendQuestionResponse)="retrieveQuestionResponse($event)"
+      (sendNavRequest)="retrieveNavRequest($event)">
+    </app-questions>
+  </ion-content>
+
+  <app-prev-next [data]="{hideBack: count === 0, hideNext: count === questions.length}"
+    (sendNavType)="retrieveNavType($event)"></app-prev-next>

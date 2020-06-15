@@ -29,16 +29,22 @@
 
 
 
-span {
-  font-size: large;
-}
-
-#correct {
-  color: #84d884;
-}
-
 .count {
   margin-right: 3em;
+}
+
+.no-scroll {
+  --overflow: hidden;
+}
+
+.scroll-y {
+  overflow-y: hidden !important;
+
+}
+
+ion-content {
+  max-height: 100% !important;
+  overflow-y: hidden !important;
 }
 
 .container {
@@ -46,6 +52,8 @@ span {
   align-items: center;
   justify-content: center;
   color: #fff;
+  overflow: hidden !important;
+  min-height: 100%;
 }
 
 .overlay {
@@ -61,21 +69,28 @@ span {
 
 .some-text {
   z-index: 2;
-  margin-top: 15%;
+  width: 60%;
+  position: absolute;
+  top: 50%;
+  margin: 0 auto;
 }
 
-.some-text h1 {
-  font-size: 50px;
-  margin-bottom: 2rem;
+@media (min-width: 600px) {
+  .some-text h1 {
+    font-size: 2.2rem;
+    display: block;
+    margin-bottom: 2rem;
+  }
+
+  .some-text {
+    font-size: 1.5rem;
+    display: block;
+    margin-bottom: 1.3rem;
+  }
 }
 
 
-.some-text p {
-  font-size: 2rem;
-  display: block;
-  padding-bottom: 2rem;
-  z-index: 2;
-}
+
 
 .image-container {
   position: absolute;
@@ -89,4 +104,10 @@ span {
 app-image {
   width: 100%;
   height: 100%;
+  z-index: -2;
+
+}
+
+ion-button {
+  margin-top: 3rem;
 }

@@ -8,6 +8,7 @@ import { AppComponent } from "./app.component";
 import { AppRoutingModule } from "./app-routing.module";
 import { MaterialModule } from "./material.module";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { ModalPage } from "./modal/modal.page";
 import { TruncateTextPipe } from "./truncate-text.pipe";
 
 @NgModule({
@@ -19,7 +20,6 @@ import { TruncateTextPipe } from "./truncate-text.pipe";
     AppRoutingModule,
     RouterModule,
     MaterialModule,
-
     BrowserAnimationsModule,
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],

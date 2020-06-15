@@ -1,11 +1,11 @@
 <ion-header [translucent]="true">
 
 
-  <mat-toolbar color="primary">
-    <mat-toolbar-row>
-      Home
-    </mat-toolbar-row>
-  </mat-toolbar>
+  <ion-toolbar color="primary">
+    <ion-title>Home</ion-title>
+
+
+  </ion-toolbar>
 
 
 </ion-header>
@@ -19,11 +19,16 @@
     </div>
     <div class="overlay"></div>
     <div class='some-text'>
-      <h1>JointStrong<span>&reg;</span></h1>
-      <p>CREATING THE IDEAL DIGITAL </p>
-      <p>MUSCULOSKELETAL CARE SOLUTION
-      </p>
-      <button mat-raised-button (click)="goToQuestion()" color="primary">Begin Test</button>
+      <ion-text>
+        <h1>JointStrong&reg;</h1>
+        <p>CREATING THE IDEAL DIGITAL </p>
+        <p>MUSCULOSKELETAL CARE SOLUTION
+        </p>
+      </ion-text>
+      <ion-button (click)="openSheet()" expand="block" shape="round" color="secondary">Select Case
+      </ion-button>
+      <!-- <app-bottom-sheet-content (sendSelection)="retrieveSelectedCase($event)"
+        [data]="{ list: caseList, textKey: 'topic', valueKey: 'id', descriptionKey:'case' }"></app-bottom-sheet-content> -->
     </div>
   </div>
 </ion-content>

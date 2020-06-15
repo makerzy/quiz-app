@@ -15,7 +15,7 @@ export class ScoreService {
     title: {
       text: "",
       align: "center",
-      verticalAlign: "middle",
+      verticalAlign: "top",
       y: 60,
     },
     tooltip: {
@@ -38,7 +38,7 @@ export class ScoreService {
         startAngle: -90,
         endAngle: 90,
         center: ["50%", "50%"],
-        size: "110%",
+        size: "75%",
       },
     },
     series: [

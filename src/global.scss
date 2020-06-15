@@ -28,6 +28,7 @@
 
 .max-width {
   width: 100%;
+  margin: auto;
 }
 
 .max-height {
@@ -43,9 +44,11 @@
 }
 
 mat-card {
-  max-width: 740px;
+  max-width: 75%;
   margin: 3em auto;
 }
+
+
 
 .spacer {
   flex: 1 1 auto;

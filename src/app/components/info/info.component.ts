@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { QuestionGroupService } from "src/app/services/question-services/question-group.service";
 import { QuestionGroup } from "src/app/interfaces/question.interface";
 import { Router } from "@angular/router";
+import { NavService } from "src/app/services/nav.service";
 
 @Component({
   selector: "app-info",
@@ -13,7 +14,7 @@ export class InfoComponent implements OnInit {
   questionId: string;
   constructor(
     private questionGroupService: QuestionGroupService,
-    private router: Router
+    private navService: NavService
   ) {}
 
   ngOnInit() {
@@ -26,7 +27,10 @@ export class InfoComponent implements OnInit {
 
   seeQuestion(id: string) {
     console.log(id);
-    this.router.navigate(["question"], {
+    // this.router.navigate(["question"], {
+    //   queryParams: { question: id },
+    // });
+    this.navService.push("question", {
       queryParams: { question: id },
     });
   }

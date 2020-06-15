@@ -8,7 +8,6 @@ export interface QuestionGroup {
 export interface Question {
   id: string;
   groupId: string;
-  caseStudy?: string;
   order: number;
   text: string;
   responseId?: string;

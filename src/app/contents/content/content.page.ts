@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ContentObject } from "../../interfaces/question.interface";
-import { QuestionListService } from "src/app/services/question-services/question-list.service";
+import { NavService } from "src/app/services/nav.service";
 
 @Component({
   selector: "app-content",
@@ -8,32 +8,13 @@ import { QuestionListService } from "src/app/services/question-services/question
   styleUrls: ["./content.page.scss"],
 })
 export class ContentPage implements OnInit {
-  param: string;
-  optionId: string;
-  currentContents: ContentObject[];
+  currentContent: ContentObject[];
+  topic: string;
 
-  constructor(private questionListService: QuestionListService) {
-    this.getContent();
-  }
+  constructor(private nav: NavService) {}
 
   ngOnInit() {
-    this.getQuestionContent();
-  }
-
-  getQuestionContent() {
-    const question = this.questionListService.getQuestionById(this.param);
-    const activeOption = question.options.find(
-      ({ id }) => id === this.optionId
-    );
-    this.currentContents = activeOption.content;
-  }
-
-  getContent() {
-    if (document.URL.indexOf("?") > 0) {
-      const params = document.URL.split("?");
-      this.param = params[1].split("=")[1];
-      const id = params[0].split("/");
-      this.optionId = id[id.length - 1];
-    }
+    this.currentContent = this.nav.get("content");
+    this.topic = this.nav.get("topic");
   }
 }

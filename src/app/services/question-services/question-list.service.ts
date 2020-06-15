@@ -13,7 +13,7 @@ export class QuestionListService {
     {
       id: uuid(),
       groupId: `pain-${uuid()}`,
-      caseStudy: questions["caseStudy"],
+
       order: 1,
       text: questions["Text1"],
       correctAnswerId: "a1",

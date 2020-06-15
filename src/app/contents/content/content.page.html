@@ -1,27 +1,29 @@
-<mat-toolbar color="primary">
-  <span>Content Page</span>
-</mat-toolbar>
+  <ion-header [translucent]="true">
+    <ion-toolbar color="primary">
+      <ion-title>{{ topic }}</ion-title>
+    </ion-toolbar>
+  </ion-header>
 
-<ion-content>
-  <mat-card *ngIf="currentContents">
-    <div *ngFor="let content of currentContents">
-      <mat-card-title>
-        {{content.text}}
-      </mat-card-title>
-      <mat-card-content>
-        <app-image *ngIf="content.type==='image'" [currentImage]="content.url"></app-image>
+  <ion-content>
+    <mat-card *ngIf="currentContent">
+      <div *ngFor="let content of currentContent">
+        <mat-card-title *ngIf="content.text">
+          {{content.text}}
+        </mat-card-title>
+        <mat-card-content>
+          <app-image *ngIf="content.type==='image'" [currentImage]="content.url"></app-image>
 
-        <section class="video">
-          <app-video *ngIf="content.type === 'video'" [url]="content.url"></app-video>
-        </section>
+          <section class="video">
+            <app-video *ngIf="content.type === 'video'" [url]="content.url"></app-video>
+          </section>
 
-        <section>
-          <app-youtube *ngIf="content.type === 'youtube'" [youtubeId]="content.url"></app-youtube>
-        </section>
-      </mat-card-content>
-    </div>
+          <section>
+            <app-youtube *ngIf="content.type === 'youtube'" [youtubeId]="content.url"></app-youtube>
+          </section>
+        </mat-card-content>
+      </div>
 
-  </mat-card>
+    </mat-card>
 
 
-</ion-content>
+  </ion-content>

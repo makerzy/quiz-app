@@ -1,56 +1,27 @@
-<ion-header collapse="condense">
-  <ion-toolbar>
-    <ion-title size="large">Quiz</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<div *ngIf="platformWidth > 699">
-  <ion-fab vertical="center" horizontal="start" slot="fixed">
-
-    <ion-fab-button [hidden]="count <= 1" (click)="back()" shape="round" color="primary">
-      <ion-icon name="arrow-back-circle"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
-  <ion-fab vertical="center" horizontal="end" slot="fixed">
-
-    <ion-fab-button *ngIf="count !== questions?.length + 1 " class="right" (click)="forward()" color="primary">
-      <ion-icon name="arrow-forward-circle"></ion-icon>
-
-    </ion-fab-button>
-  </ion-fab>
-</div>
-
 <div *ngIf="currentQuestion as question">
 
   <mat-card>
-    <div>
-      <h3>{{questions[0].caseStudy}}</h3>
-    </div>
-
     <h3>
       {{ question.text }}
     </h3>
-    <button mat-raised-button *ngIf="isSubmitted" class="right" (click)="open=!open">SEE YOUR RESPONSE</button>
-    <div [hidden]="!open">
+    <ion-button *ngIf="isSubmitted && question.responseId" class="right" (click)="open=!open">SEE YOUR RESPONSE
+    </ion-button>
+    <div [hidden]="!open && question.responseId">
       <mat-card-content>
+
+
         <mat-radio-group [(ngModel)]="selectedOption">
           <mat-list *ngFor="let option of question.options">
-            <mat-grid-list cols="12">
-              <mat-grid-tile colspan="1">
-                <mat-radio-button [disabled]="question.responseId && isSubmitted" slot="start" color="primary"
-                  [value]="option.id">
-                </mat-radio-button>
-              </mat-grid-tile>
-
-              <mat-grid-tile colspan="11">
-                <h4 class="max-width zero" [ngClass]="{
-                'green-text':selectedOption=== option.id && option.id===question.correctAnswerId &&
-                isSubmitted, 'red-text':selectedOption === option.id && option.id !==
-                question.correctAnswerId && isSubmitted
-              }" [innerHTML]="option.text"></h4>
-              </mat-grid-tile>
-            </mat-grid-list>
+            <mat-radio-button [disabled]="question.responseId && isSubmitted" slot="start" color="primary"
+              [value]="option.id">
+              <h3 class="max-width zero" [ngClass]="{
+              'green-text':selectedOption=== option.id && option.id===question.correctAnswerId &&
+              question.isCorrect, 'red-text':selectedOption === option.id && option.id !==
+              question.correctAnswerId && question.isCorrect
+            }" [innerHTML]="option.text"></h3>
+            </mat-radio-button>
           </mat-list>
+
         </mat-radio-group>
       </mat-card-content>
       <button mat-raised-button [disabled]="!selectedOption" (click)="submit(question)" color="primary">
@@ -61,71 +32,51 @@
   </mat-card>
 </div>
 
-<div *ngIf="currentQuestion.responseId && currentQuestion as question">
-  <mat-card>
-    <div>
-      <mat-hint>
-        YOUR PEERS RESPONSE:
-      </mat-hint>
-    </div>
+<div class="solution" *ngIf="currentQuestion.responseId && currentQuestion as question">
 
+  <ion-list *ngFor="let option of question.options">
 
-    <mat-card-content>
-      <mat-list *ngFor="let option of question.options">
-        <mat-grid-list cols="12">
-          <mat-grid-tile colspan="1">
-            <span *ngIf="question.correctAnswerId === option.id">
-              <mat-icon class="green-text">done</mat-icon>
-            </span>
-            <span *ngIf="question.correctAnswerId !== option.id">
-              <mat-icon color="accent">clear</mat-icon>
-            </span>
-          </mat-grid-tile>
+    <ion-row>
+      <ion-col size="1">
+        <span *ngIf=" question.correctAnswerId === option.id">
+          <mat-icon class="green-text">done</mat-icon>
+        </span>
+        <span *ngIf="question.correctAnswerId !== option.id">
+          <mat-icon color="accent">clear</mat-icon>
+        </span>
+      </ion-col>
 
-          <mat-grid-tile colspan="11">
-            <p class="max-width" [ngClass]="{
+      <ion-col size="11">
+        <p class="max-width" [ngClass]="{
                 'green-text': question.correctAnswerId === option.id,
                 'red-text': question.correctAnswerId !== option.id
               }" innerHTML="{{ option.text }}"></p>
-          </mat-grid-tile>
-          <mat-grid-tile colspan="1"></mat-grid-tile>
-          <mat-grid-tile colspan="11">
+      </ion-col>
+    </ion-row>
 
-            <mat-hint class="max-width">{{ option.info }}</mat-hint>
+    <ion-row>
+      <ion-col offset="1">
 
-          </mat-grid-tile>
-        </mat-grid-list>
-        <mat-grid-list cols="12">
-          <mat-grid-tile colspan="8">
-            <mat-progress-bar color="primary" [value]="option.userSelectionPercentage"></mat-progress-bar>
-          </mat-grid-tile>
-          <mat-grid-tile colspan="1">
-            {{ option.userSelectionPercentage }}%
-          </mat-grid-tile>
-          <mat-grid-tile colspan="3">
-            <button id="learn-more" color="primary" mat-button (click)="setRoute(option.id)">
-              Learn more...
-            </button>
-          </mat-grid-tile>
-        </mat-grid-list>
-        <mat-divider></mat-divider>
-      </mat-list>
-    </mat-card-content>
-    <div class="spacer"></div>
+        <ion-label>{{ option.info }}</ion-label>
 
+      </ion-col>
+    </ion-row>
 
-  </mat-card>
-  <ion-footer *ngIf="platformWidth < 700">
-    <ion-toolbar>
-      <ion-buttons slot="start" (click)="back()">
-        <ion-button color="primary">Prev</ion-button>
-      </ion-buttons>
-      <ion-buttons slot="end" (click)="forward()">
-        <ion-button color="primary">
-          next
-        </ion-button>
-      </ion-buttons>
-    </ion-toolbar>
-  </ion-footer>
-
+    <ion-row>
+      <ion-col size="10">
+        <ion-progress-bar color="primary" [value]="option.userSelectionPercentage/100 "></ion-progress-bar>
+      </ion-col>
+      <ion-col size="2">
+        {{ option.userSelectionPercentage}}%
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="4">
+        <button id="learn-more" color="primary" mat-button (click)="navigateToContent(option.content)">
+          Learn more...
+        </button>
+      </ion-col>
+    </ion-row>
+    <mat-divider></mat-divider>
+  </ion-list>
 </div>

@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { NavController } from "@ionic/angular";
+import { NavService } from "./services/nav.service";
 
 export interface URLParams {
   questionGroupId?: string;
@@ -14,7 +14,7 @@ export interface URLParams {
 export class AppComponent {
   urlParams = {} as URLParams;
 
-  constructor(private navCtrl: NavController) {
+  constructor(private navService: NavService) {
     this.initializeApp();
   }
 
@@ -26,8 +26,12 @@ export class AppComponent {
     }
 
     if (this.urlParams.questionGroupId) {
+      return this.navService.setRoot("question", {
+        questionGroupId: this.urlParams.questionGroupId,
+      });
       // navigate to question page with the questionId as a param
     }
+    return this.navService.setRoot("home");
   }
 
   getUrlParms() {

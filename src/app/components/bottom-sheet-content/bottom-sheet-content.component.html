@@ -1,0 +1,11 @@
+<div *ngIf="data">
+  <app-search [data]='{ list: data.list, label: data.label, textKey: data.textKey, valueKey: data.valueKey }'
+    (sendData)="retrieveSearchSelection($event)"></app-search>
+  <mat-nav-list>
+    <mat-list-item *ngFor="let item of data.list" (click)="selectItem(item)">
+      <span mat-line>{{item[data.textKey]}}</span>
+      <span mat-line>{{item[data.descriptionKey]|truncateText:150}}</span>
+    </mat-list-item>
+  </mat-nav-list>
+
+</div>

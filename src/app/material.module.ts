@@ -19,6 +19,11 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
 import { MatAutocompleteModule } from "@angular/material/autocomplete";
+import {
+  MatBottomSheetModule,
+  MAT_BOTTOM_SHEET_DATA,
+  MatBottomSheetRef,
+} from "@angular/material/bottom-sheet";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatRadioModule } from "@angular/material/radio";
 import { MatNativeDateModule } from "@angular/material/core";
@@ -39,6 +44,7 @@ const material = [
   MatProgressSpinnerModule,
   MatProgressBarModule,
   MatToolbarModule,
+  MatBottomSheetModule,
   MatSidenavModule,
   MatMenuModule,
   MatDividerModule,
@@ -68,5 +74,9 @@ const material = [
 @NgModule({
   imports: [material],
   exports: [material],
+  providers: [
+    { provide: MatBottomSheetRef, useValue: {} },
+    { provide: MAT_BOTTOM_SHEET_DATA, useValue: {} },
+  ],
 })
 export class MaterialModule {}

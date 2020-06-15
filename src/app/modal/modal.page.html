@@ -1,0 +1,19 @@
+ <ion-header>
+   <ion-toolbar>
+     <ion-title>{{header}}</ion-title>
+   </ion-toolbar>
+ </ion-header>
+
+ <ion-content>
+   <div *ngIf="list">
+     <app-search [data]="{ list: list, label: header, textKey: displayParams, valueKey: list[' id'] }"
+       (sendData)="retrieveSearchSelection($event)"></app-search>
+     <mat-nav-list>
+       <mat-list-item *ngFor="let item of list" (click)="selectItem(item)">
+         <span mat-line>{{item[displayParams[0]]}}</span>
+         <span mat-line>{{item[displayParams[1]]|truncateText:150}}</span>
+       </mat-list-item>
+     </mat-nav-list>
+
+   </div>
+ </ion-content>

@@ -10,6 +10,8 @@ import { MaterialModule } from "../material.module";
 import { ComponentsModule } from "../components/components/components.module";
 
 import { MediaContentModule } from "../contents/media-content/media-content.module";
+import { ModalPageModule } from "../modal/modal.module";
+
 @NgModule({
   imports: [
     CommonModule,
@@ -19,6 +21,7 @@ import { MediaContentModule } from "../contents/media-content/media-content.modu
     ComponentsModule,
     MaterialModule,
     MediaContentModule,
+    ModalPageModule,
   ],
   declarations: [HomePage],
   exports: [],
