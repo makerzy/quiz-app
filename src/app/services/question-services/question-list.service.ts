@@ -11,12 +11,27 @@ const options = translations.en.options;
 export class QuestionListService {
   questionList: Question[] = [
     {
-      id: uuid(),
+      id: "1",
       groupId: `pain-${uuid()}`,
 
       order: 1,
       text: questions["Text1"],
       correctAnswerId: "a1",
+      bonusButtonText: options["bonusButtonText"],
+      bonusContent: [
+        {
+          type: "video",
+          order: 1,
+          text: options["bonusContentText_a1"],
+          url: "https://education-videos.s3.amazonaws.com/OAC_5_Funnel1.mp4",
+        },
+        {
+          type: "video",
+          order: 2,
+          text: options["bonusContentText_a2"],
+          url: "https://education-videos.s3.amazonaws.com/OAC_5_Funnel2.mp4",
+        },
+      ],
       options: [
         {
           id: "a1",
@@ -27,11 +42,12 @@ export class QuestionListService {
             {
               type: "video",
               order: 1,
-              text: "(IMC 1006 - Funnel Movements: L/S Derangement).  ",
+              text: options["contentText_a1"],
               url:
-                "https://education-videos.s3.amazonaws.com/OAC_6_PJArticularDysfunction.mp4",
+                "https://education-videos.s3.amazonaws.com/OAC_6_LSFunnel.mp4",
             },
           ],
+          buttonText: options["a1_buttonText"],
         },
         {
           id: "a2",
@@ -42,11 +58,12 @@ export class QuestionListService {
             {
               type: "video",
               order: 1,
-              text: "(IMC 1006 - Funnel Movements: L/S Stenosis).  ",
+              text: options["contentText_a2"],
               url:
-                "https://www.dropbox.com/s/29apw8ro6qtihw7/OAC_6_LSStenosis.mp4?dl=0",
+                "https://education-videos.s3.amazonaws.com/OAC_6_LSStenosis.mp4",
             },
           ],
+          buttonText: options["a2_buttonText"],
         },
         {
           id: "a3",
@@ -57,11 +74,11 @@ export class QuestionListService {
             {
               type: "video",
               order: 1,
-              text: "(IMC 1006 - Funnel Movements: L/S ANR).",
-              url:
-                "https://www.dropbox.com/s/c5pi5zs7tu3fzl5/OAC_6_LSANR.mp4?dl=0 ",
+              text: options["contentText_a3"],
+              url: "https://education-videos.s3.amazonaws.com/OAC_6_LSANR.mp4",
             },
           ],
+          buttonText: options["a3_buttonText"],
         },
         {
           id: "a4",
@@ -72,20 +89,22 @@ export class QuestionListService {
             {
               type: "video",
               order: 1,
-              text: "(IMC 1006 - Peripheral Jt Contractile Dysfunction).  ",
+              text: options["contentText_a4"],
               url:
-                "https://www.dropbox.com/s/zh4x7pwoizmjpxt/OAC_6_PJContractileDysfunction.mp4?dl=0",
+                "https://education-videos.s3.amazonaws.com/OAC_6_PJContractileDysfunction.mp4",
             },
           ],
+          buttonText: options["a4_buttonText"],
         },
       ],
     },
     {
-      id: uuid(),
+      id: "2",
       order: 2,
       groupId: `pain-${uuid()}`,
       correctAnswerId: "b3",
       text: questions["Text2"],
+      bonusContent: [],
       options: [
         {
           id: "b1",
@@ -96,18 +115,19 @@ export class QuestionListService {
             {
               type: "video",
               order: 1,
-              text: "(IMC 1006 - Baseline Highlights 1,3).",
+              text: options["contentText_b1"],
               url:
-                "https://www.dropbox.com/s/hz8cq2p2a1wxrfm/OAC_6_BaselineHighlights1.mp4?dl=0 ",
+                "https://education-videos.s3.amazonaws.com/OAC_6_BaselineHighlights1.mp4",
             },
             {
               type: "video",
               order: 2,
-              text: "",
+              text: options["contentText_b1_2"],
               url:
-                "https://www.dropbox.com/s/i5rrl9x1jk71xjp/OAC_6_BaselineHighlights3.mp4?dl=0",
+                "https://education-videos.s3.amazonaws.com/OAC_6_BaselineHighlights3.mp4",
             },
           ],
+          buttonText: options["b1_buttonText"],
         },
         {
           id: "b2",
@@ -118,11 +138,12 @@ export class QuestionListService {
             {
               type: "video",
               order: 1,
-              text: "(IMC 1006 - Baseline Highlights 5).",
+              text: options["contentText_b2"],
               url:
-                "https://www.dropbox.com/s/dhfo471nfru1bne/OAC_6_BaselineHighlights5.mp4?dl=0",
+                "https://education-videos.s3.amazonaws.com/OAC_6_BaselineHighlights5.mp4",
             },
           ],
+          buttonText: options["b2_buttonText"],
         },
         {
           id: "b3",
@@ -133,11 +154,12 @@ export class QuestionListService {
             {
               type: "video",
               order: 1,
-              text: "(IMC 1006 - Baseline Highlights 2).",
+              text: options["contentText_b3"],
               url:
-                "https://www.dropbox.com/s/zyj22x90tucbkbq/OAC_6_BaselineHighlights2.mp4?dl=0",
+                "https://education-videos.s3.amazonaws.com/OAC_6_BaselineHighlights2.mp4",
             },
           ],
+          buttonText: options["b3_buttonText"],
         },
         {
           id: "b4",
@@ -148,19 +170,31 @@ export class QuestionListService {
             {
               type: "video",
               order: 1,
-              text: "(IMC 1006 - Baseline Highlights 2).",
-              url: "(IMC 1006 - Baseline Highlights 2).",
+              text: options["contentText_b4"],
+              url:
+                "https://education-videos.s3.amazonaws.com/OAC_6_BaselineHighlights2.mp4",
             },
           ],
+          buttonText: options["b4_buttonText"],
         },
       ],
     },
     {
-      id: uuid(),
+      id: "3",
       order: 3,
       groupId: `pain-${uuid()}`,
       correctAnswerId: "c2",
       text: questions["Text3"],
+      bonusButtonText: options["bonusButtonText"],
+      bonusContent: [
+        {
+          type: "video",
+          order: 1,
+          text: options["bonusContentText_c1"],
+          url:
+            "https://education-videos.s3.amazonaws.com/OAC_9_KneeIntroWithSpineScreen.mp4",
+        },
+      ],
       options: [
         {
           id: "c1",
@@ -171,11 +205,12 @@ export class QuestionListService {
             {
               type: "video",
               order: 1,
-              text: "",
+              text: options["contentText_c1"],
               url:
-                "https://www.dropbox.com/s/0i7sps1m41tipyg/OAC_5_Funnel1.mp4?dl=0",
+                "https://education-videos.s3.amazonaws.com/SGIS_R(Final).mp4",
             },
           ],
+          buttonText: options["c1_buttonText"],
         },
         {
           id: "c2",
@@ -186,11 +221,12 @@ export class QuestionListService {
             {
               type: "video",
               order: 1,
-              text: "",
+              text: options["contentText_c2"],
               url:
-                "https://www.dropbox.com/s/te8si03i5shndht/OAC_5_Funnel2.mp4?dl=0",
+                "https://education-videos.s3.amazonaws.com/Lumbar-EIL-homeinterventions(final).mp4",
             },
           ],
+          buttonText: options["c2_buttonText"],
         },
         {
           id: "c3",
@@ -201,11 +237,12 @@ export class QuestionListService {
             {
               type: "video",
               order: 1,
-              text: "IMC 1009 - Knee Introduction and Spine Screen.",
+              text: options["contentText_c3"],
               url:
-                "https://www.dropbox.com/s/3tmrmy92zoadea8/IntroSpineScreen.mp4?dl=0",
+                "https://education-videos.s3.amazonaws.com/Knee_Ext_Unloaded(Final).mp4",
             },
           ],
+          buttonText: options["c3_buttonText"],
         },
         {
           id: "c4",
@@ -216,19 +253,22 @@ export class QuestionListService {
             {
               type: "video",
               order: 1,
-              text: "",
-              url: "",
+              text: options["contentText_c4"],
+              url:
+                "https://education-videos.s3.amazonaws.com/Lumbar-ExtFulcrum-homeinterventions(Final).mp4",
             },
           ],
+          buttonText: options["c4_buttonText"],
         },
       ],
     },
     {
-      id: uuid(),
+      id: "4",
       order: 4,
       groupId: `pain-${uuid()}`,
       correctAnswerId: "d3",
       text: questions["Text4"],
+      bonusContent: [],
       options: [
         {
           id: "d1",
@@ -239,10 +279,12 @@ export class QuestionListService {
             {
               type: "video",
               order: 1,
-              text: "",
-              url: "",
+              text: options["contentText_d1"],
+              url:
+                "https://education-videos.s3.amazonaws.com/SGIS_R(Final).mp4",
             },
           ],
+          buttonText: options["d1_buttonText"],
         },
         {
           id: "d2",
@@ -253,10 +295,12 @@ export class QuestionListService {
             {
               type: "video",
               order: 1,
-              text: "",
-              url: "",
+              text: options["contentText_d2"],
+              url:
+                "https://education-videos.s3.amazonaws.com/Manual_Shift_Correction_R.mp4",
             },
           ],
+          buttonText: options["d2_buttonText"],
         },
         {
           id: "d3",
@@ -267,24 +311,20 @@ export class QuestionListService {
             {
               type: "video",
               order: 1,
-              text: "",
-              url: "",
+              text: options["contentText_d3"],
+              url:
+                "https://education-videos.s3.amazonaws.com/UpperLumbar-OP(Final).mp4",
             },
           ],
+          buttonText: options["d3_buttonText"],
         },
         {
           id: "d4",
           text: options["d4Text"],
           info: options["d4Info"],
           userSelectionPercentage: 41,
-          content: [
-            {
-              type: "video",
-              order: 1,
-              text: "",
-              url: "",
-            },
-          ],
+          content: [],
+          buttonText: options["d4_buttonText"],
         },
       ],
     },

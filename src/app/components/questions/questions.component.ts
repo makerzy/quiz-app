@@ -1,11 +1,4 @@
-import {
-  Component,
-  Input,
-  Output,
-  EventEmitter,
-  OnInit,
-  OnChanges,
-} from "@angular/core";
+import { Component, Input, Output, EventEmitter } from "@angular/core";
 import { Question, ContentObject } from "src/app/interfaces/question.interface";
 
 @Component({
@@ -13,14 +6,17 @@ import { Question, ContentObject } from "src/app/interfaces/question.interface";
   templateUrl: "./questions.component.html",
   styleUrls: ["./questions.component.scss"],
 })
-export class QuestionsComponent implements OnChanges {
+export class QuestionsComponent {
   @Input()
   currentQuestion: Question;
   @Input() currentScore: number;
+  @Input() count: number;
   @Output()
   sendQuestionResponse: EventEmitter<Question> = new EventEmitter();
   @Output()
   sendScore: EventEmitter<number> = new EventEmitter();
+  @Output()
+  sendAnswered: EventEmitter<number> = new EventEmitter();
   @Output() sendNavRequest: EventEmitter<{
     url: string;
     data: any;
@@ -29,9 +25,9 @@ export class QuestionsComponent implements OnChanges {
   isSubmitted: boolean = false;
   open: boolean = true;
   selectedOption: string;
-
+  answered: number = 0;
   constructor() {}
-  ngOnChanges() {}
+
   navigateToContent(content: ContentObject[]) {
     this.sendNavRequest.emit({ url: "content", data: { content } });
   }
@@ -51,17 +47,19 @@ export class QuestionsComponent implements OnChanges {
   submit(question: Question) {
     this.isSubmitted = true;
     this.open = false;
+    this.answered++;
+    this.sendAnswered.emit(this.answered);
     question.isCorrect = this.determineIsCorrect();
     this.sendScore.emit(this.currentScore);
     question.responseId = this.selectedOption;
   }
 
   determineIsCorrect() {
-    // this.open = false;
     const correctAnswerId = this.currentQuestion.correctAnswerId;
     const selectedAnswerId = this.selectedOption;
     if (correctAnswerId === selectedAnswerId) {
       this.currentScore++;
+
       return true;
     }
     return false;

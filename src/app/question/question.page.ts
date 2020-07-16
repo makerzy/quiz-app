@@ -1,10 +1,10 @@
 import { Component, OnInit } from "@angular/core";
-import { Question, QuestionGroup } from "../interfaces/question.interface";
-import { QuestionListService } from "../services/question-services/question-list.service";
+import { Question, QuestionGroup } from "src/app/interfaces/question.interface";
+import { QuestionListService } from "src/app/services/question-services/question-list.service";
 
-import { NavService } from "../services/nav.service";
-import { NavType } from "../components/prev-next/prev-next.component";
-import { QuestionGroupService } from "../services/question-services/question-group.service";
+import { NavService } from "src/app/services/nav.service";
+import { NavType } from "src/app/components/prev-next/prev-next.component";
+import { QuestionGroupService } from "src/app/services/question-services/question-group.service";
 
 @Component({
   selector: "app-question",
@@ -18,7 +18,8 @@ export class QuestionPage implements OnInit {
   currentQuestion: Question;
   score: number = 0;
   count: number;
-  open: boolean = true;
+  completed: boolean = false;
+  answered: number;
   constructor(
     private questionListService: QuestionListService,
     private nav: NavService,
@@ -26,29 +27,32 @@ export class QuestionPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log("URL: ", document.URL);
-    this.questionGroupId = this.nav.get("questionGroupId")["id"];
-    console.log("QuestionGroupId: ", this.questionGroupId);
-    if (!this.questionGroupId) return this.returnToHome();
-    this.questions = this.questionListService.getQuestionsByGroupId(
-      this.questionGroupId.split("-")[0]
-    );
-    this.getQuestionGroup();
-
     this.reset();
-  }
-
-  getQuestionGroup() {
+    const questionGrp = this.nav.get("questionGroupId");
+    if (!questionGrp) return this.returnToHome();
+    this.questionGroupId = questionGrp.id;
+    /* console.log("Question Group ID: ", this.questionGroupId); */
     this.questionGroup = this.questionGrpService.getQuestionGroup(
       this.questionGroupId
-    )[0];
+    );
+    this.questions = this.questionGroup.questions;
+    /* console.log(this.questionGroup, this.questions); */
+    this.setCurrentQuestion();
   }
+  ionViewWillEnter() {}
 
   reset() {
     this.count = 0;
-    this.setCurrentQuestion();
+    this.questionGroupId = null;
+    this.questionGroup = null;
+    this.questions = null;
+    this.currentQuestion = null;
+    this.score = 0;
+    this.answered = 0;
   }
-
+  retrieveAnswered(_answered: number) {
+    this.answered = _answered;
+  }
   setCurrentQuestion() {
     this.currentQuestion = this.questions[this.count];
   }
@@ -70,16 +74,30 @@ export class QuestionPage implements OnInit {
     } else {
       this.count++;
     }
-    this.open = true;
-    if (this.count > this.questions.length - 1)
-      return this.nav.push("review", {
-        queryParams: { score: this.score, total: this.questions.length },
-      });
+    if (this.count === this.questions.length - 1) {
+      this.completed = true;
+    }
+    if (
+      this.count === this.questions.length &&
+      this.answered === this.questions.length
+    ) {
+      // this.count = 0;
+      // this.setCurrentQuestion();
+
+      this.endTest();
+    }
     return this.setCurrentQuestion();
+  }
+
+  endTest() {
+    return this.nav.setRoot("review", {
+      queryParams: { score: this.score, total: this.questions.length },
+    });
   }
   retrieveQuestionResponse(question: Question) {
     const index = this.questions.findIndex(({ id }) => id === question.id);
     this.questions[index] = question;
+    /* console.log(this.questionListService.questionList); */
   }
 
   retrieveNavRequest({ url, data }) {

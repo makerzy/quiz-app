@@ -8,8 +8,8 @@ import { AppComponent } from "./app.component";
 import { AppRoutingModule } from "./app-routing.module";
 import { MaterialModule } from "./material.module";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { ModalPage } from "./modal/modal.page";
-import { TruncateTextPipe } from "./truncate-text.pipe";
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,6 +21,7 @@ import { TruncateTextPipe } from "./truncate-text.pipe";
     RouterModule,
     MaterialModule,
     BrowserAnimationsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   exports: [RouterModule, MaterialModule],

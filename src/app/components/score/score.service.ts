@@ -1,5 +1,4 @@
-import { Injectable } from "@angular/core";
-import * as Highcharts from "highcharts";
+/* import { Injectable } from "@angular/core";
 
 @Injectable({
   providedIn: "root",
@@ -67,3 +66,4 @@ export class ScoreService {
     return Highcharts.chart(container, option);
   }
 }
+ */

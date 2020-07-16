@@ -8,13 +8,14 @@ import { NavService } from "src/app/services/nav.service";
   styleUrls: ["./content.page.scss"],
 })
 export class ContentPage implements OnInit {
-  currentContent: ContentObject[];
+  currentContents: ContentObject[];
   topic: string;
 
   constructor(private nav: NavService) {}
 
   ngOnInit() {
-    this.currentContent = this.nav.get("content");
+    this.currentContents = this.nav.get("content");
     this.topic = this.nav.get("topic");
+    console.log(this.currentContents);
   }
 }

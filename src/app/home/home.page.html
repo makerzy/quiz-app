@@ -1,34 +1,23 @@
-<ion-header [translucent]="true">
-
-
-  <ion-toolbar color="primary">
-    <ion-title>Home</ion-title>
-
-
-  </ion-toolbar>
-
-
-</ion-header>
-
-<ion-content [fullscreen]="true">
+<ion-content>
   <div class="container">
 
-    <div class="image-container">
+    <div class="max-height max-width image-container">
 
-      <app-image [currentImage]='image'></app-image>
+      <app-image *ngIf="platformSize>=600" class="max-height max-width" [currentImage]='image'></app-image>
     </div>
     <div class="overlay"></div>
     <div class='some-text'>
-      <ion-text>
+      <ion-text *ngIf="platformSize>=600">
         <h1>JointStrong&reg;</h1>
         <p>CREATING THE IDEAL DIGITAL </p>
         <p>MUSCULOSKELETAL CARE SOLUTION
         </p>
       </ion-text>
-      <ion-button (click)="openSheet()" expand="block" shape="round" color="secondary">Select Case
+      <!--  <ion-button (click)="openSheet()" expand="block" shape="round">Select Case
+      </ion-button> -->
+      <ion-button (click)=" goToQuestion()" color="light" fill="outline" expand="block" shape="round">
+        <h3>GET STARTED</h3>
       </ion-button>
-      <!-- <app-bottom-sheet-content (sendSelection)="retrieveSelectedCase($event)"
-        [data]="{ list: caseList, textKey: 'topic', valueKey: 'id', descriptionKey:'case' }"></app-bottom-sheet-content> -->
     </div>
   </div>
 </ion-content>

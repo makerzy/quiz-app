@@ -10,7 +10,7 @@ import { MaterialModule } from "../material.module";
 import { ComponentsModule } from "../components/components/components.module";
 
 import { MediaContentModule } from "../contents/media-content/media-content.module";
-import { ModalPageModule } from "../modal/modal.module";
+import { ModalPageModule } from "../modal/search-modal.module";
 
 @NgModule({
   imports: [

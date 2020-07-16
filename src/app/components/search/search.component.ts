@@ -34,7 +34,7 @@ export class SearchComponent implements OnChanges, OnInit {
   textKey = "text";
   valueKey = "value";
   ngOnInit() {
-    console.log(this.data.textKey);
+    console.log(this.data.list);
   }
   ngOnChanges() {
     if (this.data && this.data.list) {
@@ -50,7 +50,7 @@ export class SearchComponent implements OnChanges, OnInit {
         startWith(""),
         map((value) => {
           if (value)
-            return typeof value === "string" ? value : value[this.textKey];
+            return typeof value === "string" ? value : value[this.textKey[0]];
         }),
         map((text) => (text ? this._filter(text) : this.data.list.slice()))
       );
@@ -66,8 +66,13 @@ export class SearchComponent implements OnChanges, OnInit {
   private _filter(searchText: string): any[] {
     searchText = searchText.toLowerCase();
 
-    return this.data.list.filter((item) =>
-      item[this.textKey].toLowerCase().includes(searchText)
+    return (
+      this.data.list.filter((item) =>
+        item[this.textKey[1]].toLowerCase().includes(searchText)
+      ) ||
+      this.data.list.filter((item) =>
+        item[this.textKey[0]].toLowerCase().includes(searchText)
+      )
     );
   }
 

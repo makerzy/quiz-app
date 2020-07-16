@@ -1,35 +1,10 @@
-<ion-header color="primary" [translucent]="true">
-
-
-  <ion-toolbar>
-    <ion-row>
-      <ion-buttons slot="start">
-        <ion-back-button (click)="goBack()"></ion-back-button>
-      </ion-buttons>
-      <ion-title>My Navigation Bar</ion-title>
-
-    </ion-row>
-  </ion-toolbar>
-
-
-
-
-</ion-header>
-
 <ion-content>
-  <mat-grid-list cols="12" [rowHeight]="topRowHeight">
-    <mat-grid-tile rowspan="1" colspan="4">
-      <app-info class="max-width max-height"></app-info>
-    </mat-grid-tile>
-    <mat-grid-tile rowspan="1" colspan="8">
-      <app-score class="max-width max-height"></app-score>
-    </mat-grid-tile>
-
-  </mat-grid-list>
-  <mat-grid-list cols="12" [rowHeight]="bottomRowHeight">
-    <mat-grid-tile rowspan="1" colspan="12">
-      <app-conclusion class="max-width max-height"></app-conclusion>
-    </mat-grid-tile>
-  </mat-grid-list>
+  <div class="top">
+    <app-score></app-score>
+    <ion-button color="primary" expand="block" shape="round" (click)="goBack()">Return Home</ion-button>
+  </div>
+  <!-- <div class="bottom">
+    <app-info class="max-width "></app-info>
+  </div> -->
 
 </ion-content>

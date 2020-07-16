@@ -1,104 +1,76 @@
 import { Injectable } from "@angular/core";
 import { v1 as uuid } from "uuid";
-import { QuestionGroup } from "src/app/interfaces/question.interface";
+import { QuestionGroup, Question } from "src/app/interfaces/question.interface";
+import { translations } from "src/app/translations";
+import { QuestionListService } from "./question-list.service";
 
+const questionGroup = translations.en.questionGroup;
 @Injectable({
   providedIn: "root",
 })
 export class QuestionGroupService {
   questionGroups: QuestionGroup[] = [
     {
-      topic: "Pain",
-      case:
-        "A 28 year-old male has complaints of right anterior thigh and knee pain. Symptoms began 3 weeks ago without mechanism. The symptoms are intermittent and appear to be worse with prolong sitting, rising, the first few steps of ambulation, and with ADLs requiring bending (bathing, grooming, dressing, etc.). When questioned, the patient does describe obstruction with his current condition.",
+      topic: questionGroup["topic_1"],
+      case: questionGroup["case_1"],
       id: `pain-${uuid()}`,
-      questionIds: [
-        `pain-${uuid()}`,
-        `pain-${uuid()}`,
-        `pain-${uuid()}`,
-        `pain-${uuid()}`,
-      ],
+      questionIds: [`1`, `2`, `3`, `4`],
     },
     {
-      topic: "Body Pain",
-      case:
-        "A 40 year-old male has complaints of right anterior thigh and knee pain. Symptoms began 3 weeks ago without mechanism. The symptoms are intermittent and appear to be worse with prolong sitting, rising, the first few steps of ambulation, and with ADLs requiring bending (bathing, grooming, dressing, etc.). When questioned, the patient does describe obstruction with his current condition.",
+      topic: questionGroup["topic_2"],
+      case: questionGroup["case_2"],
       id: `pain-body-${uuid()}`,
-      questionIds: [
-        `pain-body-${uuid()}`,
-        `pain-body-${uuid()}`,
-        `pain-body-${uuid()}`,
-        `pain-body-${uuid()}`,
-      ],
+      questionIds: [`1`, `2`, `3`, `4`],
     },
     {
-      topic: "Back Pain",
-      case:
-        "A 12 year-old male has complaints of right anterior thigh and knee pain. Symptoms began 3 weeks ago without mechanism. The symptoms are intermittent and appear to be worse with prolong sitting, rising, the first few steps of ambulation, and with ADLs requiring bending (bathing, grooming, dressing, etc.). When questioned, the patient does describe obstruction with his current condition.",
+      topic: questionGroup["topic_3"],
+      case: questionGroup["case_3"],
       id: `pain-back-${uuid()}`,
-      questionIds: [
-        `pain-back-${uuid()}`,
-        `pain-back-${uuid()}`,
-        `pain-back-${uuid()}`,
-        `pain-back-${uuid()}`,
-      ],
+      questionIds: [`1`, `2`, `3`, `4`],
     },
     {
-      topic: "Leg Pain",
-      case:
-        "A 50 year-old male has complaints of right anterior thigh and knee pain. Symptoms began 3 weeks ago without mechanism. The symptoms are intermittent and appear to be worse with prolong sitting, rising, the first few steps of ambulation, and with ADLs requiring bending (bathing, grooming, dressing, etc.). When questioned, the patient does describe obstruction with his current condition.",
+      topic: questionGroup["topic_4"],
+      case: questionGroup["case_4"],
       id: `pain-leg-${uuid()}`,
-      questionIds: [
-        `pain-leg-${uuid()}`,
-        `pain-leg-${uuid()}`,
-        `pain-leg-${uuid()}`,
-        `pain-leg-${uuid()}`,
-      ],
+      questionIds: [`1`, `2`, `3`, `4`],
     },
     {
-      topic: "Chest Pain",
-      case:
-        "A 32 year-old male has complaints of right anterior thigh and knee pain. Symptoms began 3 weeks ago without mechanism. The symptoms are intermittent and appear to be worse with prolong sitting, rising, the first few steps of ambulation, and with ADLs requiring bending (bathing, grooming, dressing, etc.). When questioned, the patient does describe obstruction with his current condition.",
+      topic: questionGroup["topic_5"],
+      case: questionGroup["case_5"],
       id: `pain-chest-${uuid()}`,
-      questionIds: [
-        `pain-chest-${uuid()}`,
-        `pain-chest-${uuid()}`,
-        `pain-chest-${uuid()}`,
-        `pain-chest-${uuid()}`,
-      ],
+      questionIds: [`1`, `2`, `3`, `4`],
     },
     {
-      topic: "Leg Pain",
-      case:
-        "A 50 year-old male has complaints of right anterior thigh and knee pain. Symptoms began 3 weeks ago without mechanism. The symptoms are intermittent and appear to be worse with prolong sitting, rising, the first few steps of ambulation, and with ADLs requiring bending (bathing, grooming, dressing, etc.). When questioned, the patient does describe obstruction with his current condition.",
+      topic: questionGroup["topic_6"],
+      case: questionGroup["case_6"],
       id: `pain-leg-${uuid()}`,
-      questionIds: [
-        `pain-leg-${uuid()}`,
-        `pain-leg-${uuid()}`,
-        `pain-leg-${uuid()}`,
-        `pain-leg-${uuid()}`,
-      ],
+      questionIds: [`1`, `2`, `3`, `4`],
     },
     {
-      topic: "Chest Pain",
-      case:
-        "A 32 year-old male has complaints of right anterior thigh and knee pain. Symptoms began 3 weeks ago without mechanism. The symptoms are intermittent and appear to be worse with prolong sitting, rising, the first few steps of ambulation, and with ADLs requiring bending (bathing, grooming, dressing, etc.). When questioned, the patient does describe obstruction with his current condition.",
+      topic: questionGroup["topic_7"],
+      case: questionGroup["case_7"],
       id: `pain-chest-${uuid()}`,
-      questionIds: [
-        `pain-chest-${uuid()}`,
-        `pain-chest-${uuid()}`,
-        `pain-chest-${uuid()}`,
-        `pain-chest-${uuid()}`,
-      ],
+      questionIds: [`1`, `2`, `3`, `4`],
     },
   ];
-  constructor() {}
+  constructor(private questionService: QuestionListService) {}
 
   getAllQuestionGroups() {
     return [...this.questionGroups];
   }
 
   getQuestionGroup(_id: string) {
-    return this.questionGroups.filter(({ id }) => id === _id);
+    const questionGroup = Object.assign(
+      {},
+      this.questionGroups.find(({ id }) => id === _id)
+    );
+    const questions = [] as Question[];
+    questionGroup.questionIds.forEach((id) =>
+      questions.push(
+        Object.assign({}, this.questionService.getQuestionById(id))
+      )
+    );
+    questionGroup.questions = questions;
+    return questionGroup;
   }
 }

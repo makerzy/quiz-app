@@ -1,8 +1,20 @@
-h2 {
-  margin-left: 1em;
+.questions {
+
+  background-color: #dbdbdf;
+  display: flex;
+  // flex-direction: column;
+  width: 100%;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
-.questions {
+ion-card {
   cursor: pointer;
-  background-color: #dbdbdf;
+  width: 350px;
+  height: 280px;
+  margin: 1em auto;
+}
+
+.card-list {
+  margin: auto;
 }

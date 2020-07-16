@@ -1,64 +1,53 @@
-import { Component, OnInit, Input, AfterViewInit } from "@angular/core";
-import { VideoPlayer, VideoOptions } from "@ionic-native/video-player";
+import {
+  Component,
+  OnChanges,
+  Input,
+  ViewChild,
+  ElementRef,
+} from "@angular/core";
+import {
+  PlatformService,
+  ScreenDimensions,
+} from "src/app/services/platform.service";
+import { Observable } from "rxjs";
 
-import { DomSanitizer } from "@angular/platform-browser";
-import { Plugins } from "@capacitor/core";
-import * as PluginsLibrary from "capacitor-video-player";
+export interface VideoPlayerData {
+  src: string;
+  type: string;
+  loop?: boolean;
+  autoplay?: boolean;
+  controls?: boolean;
+}
 
-const { CapacitorVideoPlayer, Device } = Plugins;
 @Component({
   selector: "app-video",
   templateUrl: "./video.component.html",
   styleUrls: ["./video.component.scss"],
 })
-export class VideoComponent implements OnInit {
-  videoPlayer: any;
-  @Input() url: string;
-
-  constructor(private sanitizer: DomSanitizer) {}
-
-  ngOnInit() {}
-
-  async ngAfterViewInit() {
-    const info = await Device.getInfo();
-    if (info.platform === "ios" || info.platform === "android") {
-      this.videoPlayer = CapacitorVideoPlayer;
-    } else {
-      this.videoPlayer = PluginsLibrary.CapacitorVideoPlayer;
-    }
-    this.play(this.url);
-    console.log(this.url);
+export class VideoComponent implements OnChanges {
+  @Input() data: VideoPlayerData;
+  maximumWidthThreshold = 600;
+  platformData$: Observable<ScreenDimensions>;
+  @ViewChild("video") video: ElementRef;
+  constructor(private platformService: PlatformService) {
+    this.setWidthAndHeight(this.platformService.getCurrentPlatformData());
+    this.platformData$ = this.platformService.getPlatformDataObservable();
   }
-  async play(_url: string) {
-    document.addEventListener(
-      "jeepCapVideoPlayerPlay",
-      (e: CustomEvent) => {
-        console.log("Event jeepCapVideoPlayerPlay ", e.detail);
-      },
-      false
-    );
-    document.addEventListener(
-      "jeepCapVideoPlayerPause",
-      (e: CustomEvent) => {
-        console.log("Event jeepCapVideoPlayerPause ", e.detail);
-      },
-      false
-    );
-    document.addEventListener(
-      "jeepCapVideoPlayerEnded",
-      (e: CustomEvent) => {
-        console.log("Event jeepCapVideoPlayerEnded ", e.detail);
-      },
-      false
-    );
-    const res: any = await this.videoPlayer.initPlayer({
-      mode: "embedded",
-      playerId: "vp-container",
-      width: 640,
-      height: 360,
-      url: _url,
-      componentTag: "app-video",
-    });
-    console.log(res);
+
+  ngOnChanges() {}
+
+  setWidthAndHeight(platformData: ScreenDimensions) {
+    if (platformData && platformData.width) {
+      return {
+        width: this.setWidth(platformData.width),
+        height: this.setWidth(platformData.width) * 0.56,
+      };
+    }
+  }
+
+  setWidth(width: number) {
+    return width > this.maximumWidthThreshold
+      ? this.maximumWidthThreshold
+      : width;
   }
 }

@@ -1,5 +1,9 @@
-import { Component, OnInit, Input, EventEmitter, Output } from "@angular/core";
-import { Platform } from "@ionic/angular";
+import { Component, Input, EventEmitter, Output } from "@angular/core";
+import {
+  PlatformService,
+  ScreenDimensions,
+} from "src/app/services/platform.service";
+import { Observable } from "rxjs";
 
 export enum NavType {
   back = "back",
@@ -18,26 +22,16 @@ export interface NavData {
   templateUrl: "./prev-next.component.html",
   styleUrls: ["./prev-next.component.scss"],
 })
-export class PrevNextComponent implements OnInit {
-  platformWidth: number;
+export class PrevNextComponent {
+  dimensions$: Observable<ScreenDimensions>;
+  back = NavType.back;
+  next = NavType.next;
   @Input() data: NavData;
+  @Input() completed: boolean;
   @Output() sendNavType: EventEmitter<NavType> = new EventEmitter();
 
-  constructor(private platform: Platform) {}
-
-  ngOnInit() {
-    this.getPlatformSize();
-  }
-
-  ngOnDestroy() {
-    this.platform.resize.unsubscribe();
-  }
-
-  getPlatformSize() {
-    this.platformWidth = this.platform.width();
-    this.platform.resize.subscribe(() => {
-      this.platformWidth = this.platform.width();
-    });
+  constructor(private platformService: PlatformService) {
+    this.dimensions$ = this.platformService.getPlatformDataObservable();
   }
 
   sendNav(type: NavType) {

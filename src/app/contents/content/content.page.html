@@ -1,29 +1,31 @@
   <ion-header [translucent]="true">
     <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+        <ion-back-button text="Back"></ion-back-button>
+      </ion-buttons>
       <ion-title>{{ topic }}</ion-title>
     </ion-toolbar>
   </ion-header>
 
   <ion-content>
-    <mat-card *ngIf="currentContent">
-      <div *ngFor="let content of currentContent">
-        <mat-card-title *ngIf="content.text">
-          {{content.text}}
-        </mat-card-title>
-        <mat-card-content>
-          <app-image *ngIf="content.type==='image'" [currentImage]="content.url"></app-image>
+    <div *ngIf="currentContents ">
+      <div *ngFor="let content of currentContents">
+        <ion-card>
+          <app-image *ngIf="content.type==='image'" class="max-width" [currentImage]="content.url"></app-image>
 
-          <section class="video">
-            <app-video *ngIf="content.type === 'video'" [url]="content.url"></app-video>
-          </section>
+          <app-video *ngIf="content.type === 'video'" class="max-width"
+            [data]="{ src: content.url,  type: 'video/mp4', controls:true, autoplay:false }"></app-video>
 
-          <section>
-            <app-youtube *ngIf="content.type === 'youtube'" [youtubeId]="content.url"></app-youtube>
-          </section>
-        </mat-card-content>
+          <app-youtube *ngIf="content.type === 'youtube'" class="max-width" [youtubeId]="content.url"></app-youtube>
+          <ion-card-header *ngIf="content.text">
+            <ion-card-title>
+
+              <ion-label class="ion-text-wrap" color="primary"> {{content.text}}
+              </ion-label>
+            </ion-card-title>
+          </ion-card-header>
+
+        </ion-card>
       </div>
-
-    </mat-card>
-
-
+    </div>
   </ion-content>

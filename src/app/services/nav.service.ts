@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
 import { NavController } from "@ionic/angular";
-import { NavigationExtras } from "@angular/router";
 
 @Injectable({
   providedIn: "root",
@@ -26,7 +25,7 @@ export class NavService {
 
   get(key: string) {
     if (this.data) {
-      console.log(this.data[key], this.data);
+      // console.log(this.data[key], this.data);
       return this.data[key];
     } else {
       return console.log("No Nav Data");

@@ -25,14 +25,27 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
 .max-width {
   width: 100%;
-  margin: auto;
 }
 
 .max-height {
   height: 100%;
+}
+
+ion-content {
+  padding: 1em;
+
 }
 
 .red-text {
@@ -40,12 +53,12 @@
 }
 
 .green-text {
-  color: var(--ion-color-success);
+  color: #0d9114;
 }
 
 mat-card {
-  max-width: 75%;
-  margin: 3em auto;
+  max-width: 800px;
+  margin: auto;
 }
 
 

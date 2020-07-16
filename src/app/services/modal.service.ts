@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { ModalController } from "@ionic/angular";
-import { ModalPage } from "../modal/modal.page";
+import { ModalPage } from "../modal/search-modal.page";
 
 @Injectable({
   providedIn: "root",
@@ -29,7 +29,7 @@ export class ModalService {
 
     if (data) {
       this.dismised = data;
-      console.log(this.dismised);
+      console.log("Dismissed: ", this.dismised.id);
       return this.dismised;
     } else return null;
   }

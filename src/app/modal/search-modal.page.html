@@ -1,0 +1,29 @@
+ <ion-header>
+   <ion-toolbar>
+     <!-- <ion-buttons slot="start">
+       <ion-back-button></ion-back-button>
+     </ion-buttons> -->
+
+     <ion-title>{{header}}</ion-title>
+   </ion-toolbar>
+ </ion-header>
+
+ <ion-content>
+
+   <app-filter (sendData)="retrieveFilteredList($event)"
+     [data]="{ list: list, label: header, searchParams: displayParams }"></app-filter>
+
+
+   <ion-list lines="none" *ngIf="displayedList">
+     <ion-item *ngFor="let item of displayedList">
+       <ion-label (click)="selectItem(item)" class="ion-text-wrap">
+         <ion-text color="primary">
+           <h3>{{ item.topic }}</h3>
+         </ion-text>
+         <p>{{ item.case }}</p>
+       </ion-label>
+     </ion-item>
+   </ion-list>
+
+
+ </ion-content>

@@ -1,32 +1,42 @@
 <div *ngIf="currentQuestion as question">
 
   <mat-card>
-    <h3>
-      {{ question.text }}
-    </h3>
-    <ion-button *ngIf="isSubmitted && question.responseId" class="right" (click)="open=!open">SEE YOUR RESPONSE
+    <ion-text class="dark-text">
+      <h3 class="ion-padding">Question: #{{count +1 }}</h3>
+
+      <h4>
+        {{ question.text }}
+      </h4>
+    </ion-text>
+    <ion-button *ngIf="isSubmitted && question.responseId" class="right" fill="outline" (click)="open=!open">
+      <span *ngIf="!open"> VIEW YOUR RESPONSE</span>
+      <span *ngIf="open"> HIDE YOUR RESPONSE</span>
     </ion-button>
     <div [hidden]="!open && question.responseId">
       <mat-card-content>
 
 
         <mat-radio-group [(ngModel)]="selectedOption">
-          <mat-list *ngFor="let option of question.options">
+          <ion-list class="ion-padding" *ngFor="let option of question.options">
             <mat-radio-button [disabled]="question.responseId && isSubmitted" slot="start" color="primary"
               [value]="option.id">
-              <h3 class="max-width zero" [ngClass]="{
-              'green-text':selectedOption=== option.id && option.id===question.correctAnswerId &&
-              question.isCorrect, 'red-text':selectedOption === option.id && option.id !==
-              question.correctAnswerId && question.isCorrect
-            }" [innerHTML]="option.text"></h3>
+
+              <ion-text color="primary">
+                <h5 class="max-width zero wrap-mat-radio-label" [ngClass]="{
+                'green-text':selectedOption=== option.id && option.id===question.correctAnswerId &&
+                question.isCorrect, 'red-text':selectedOption === option.id && option.id !==
+                question.correctAnswerId && question.responseId
+              }" [innerHTML]="option.text"></h5>
+              </ion-text>
             </mat-radio-button>
-          </mat-list>
+          </ion-list>
 
         </mat-radio-group>
       </mat-card-content>
-      <button mat-raised-button [disabled]="!selectedOption" (click)="submit(question)" color="primary">
+      <ion-button shape="round" [hidden]="currentQuestion.responseId" [disabled]="!selectedOption"
+        (click)="submit(question)" color="primary">
         Submit
-      </button>
+      </ion-button>
     </div>
 
   </mat-card>
@@ -34,49 +44,69 @@
 
 <div class="solution" *ngIf="currentQuestion.responseId && currentQuestion as question">
 
-  <ion-list *ngFor="let option of question.options">
+  <ion-list *ngFor="let option of question.options; let i =index">
+    <div class="items" [ngClass]="(i%2 === 0)?'even' : 'odd' ">
 
-    <ion-row>
-      <ion-col size="1">
-        <span *ngIf=" question.correctAnswerId === option.id">
-          <mat-icon class="green-text">done</mat-icon>
-        </span>
-        <span *ngIf="question.correctAnswerId !== option.id">
-          <mat-icon color="accent">clear</mat-icon>
-        </span>
-      </ion-col>
+      <ion-row class="ion-padding-top">
+        <ion-col size="1">
+          <span *ngIf=" question.correctAnswerId === option.id">
+            <ion-icon size="large" class="green-text" name="checkmark-outline"></ion-icon>
+          </span>
+          <span *ngIf="question.correctAnswerId !== option.id">
+            <ion-icon size="large" class="red-text" name="close-outline"></ion-icon>
+          </span>
+        </ion-col>
 
-      <ion-col size="11">
-        <p class="max-width" [ngClass]="{
+        <ion-col size="11">
+          <p class="max-width" [ngClass]="{
                 'green-text': question.correctAnswerId === option.id,
                 'red-text': question.correctAnswerId !== option.id
-              }" innerHTML="{{ option.text }}"></p>
-      </ion-col>
-    </ion-row>
+              }" [innerHTML]=" option.text "></p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col offset="1">
 
-    <ion-row>
-      <ion-col offset="1">
+          <ion-label class="rational">Rational:</ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col offset="1">
 
-        <ion-label>{{ option.info }}</ion-label>
+          <ion-label class="rational"> {{option.info}}</ion-label>
 
-      </ion-col>
-    </ion-row>
+        </ion-col>
+      </ion-row>
 
-    <ion-row>
-      <ion-col size="10">
-        <ion-progress-bar color="primary" [value]="option.userSelectionPercentage/100 "></ion-progress-bar>
-      </ion-col>
-      <ion-col size="2">
-        {{ option.userSelectionPercentage}}%
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col size="4">
-        <button id="learn-more" color="primary" mat-button (click)="navigateToContent(option.content)">
-          Learn more...
-        </button>
-      </ion-col>
-    </ion-row>
-    <mat-divider></mat-divider>
+      <!-- <ion-row>
+        <ion-col size="10">
+          <ion-progress-bar color="primary" [value]="option.userSelectionPercentage/100 "></ion-progress-bar>
+        </ion-col>
+        <ion-col size="2">
+          {{ option.userSelectionPercentage}}%
+        </ion-col>
+      </ion-row> -->
+      <ion-row>
+        <ion-col class="fadein grow" offset="1" size="3" *ngIf="option.content.length>0">
+          <div>
+
+            <ion-button color="primary" fill="outline" (click)="navigateToContent(option.content)">
+              {{option.buttonText}}
+            </ion-button>
+          </div>
+        </ion-col>
+      </ion-row>
+
+    </div>
+
   </ion-list>
+  <div *ngIf="currentQuestion.bonusContent.length>0" class="bonus-content">
+
+
+    <ion-button id="learn-more" color="primary" expand="block" shape="round" fill="solid"
+      (click)="navigateToContent(currentQuestion.bonusContent)">
+      {{currentQuestion.bonusButtonText}}
+    </ion-button>
+
+  </div>
 </div>

@@ -4,12 +4,12 @@ import { FormsModule } from "@angular/forms";
 
 import { IonicModule } from "@ionic/angular";
 
-import { ModalPageRoutingModule } from "./modal-routing.module";
+import { ModalPageRoutingModule } from "src/app/modal/search-modal-routing.module";
 
-import { ModalPage } from "./modal.page";
-import { MaterialModule } from "../material.module";
+import { ModalPage } from "src/app/modal/search-modal.page";
+import { MaterialModule } from "src/app/material.module";
 
-import { ComponentsModule } from "../components/components/components.module";
+import { ComponentsModule } from "src/app/components/components/components.module";
 
 @NgModule({
   imports: [

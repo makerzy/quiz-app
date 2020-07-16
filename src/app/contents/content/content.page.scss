@@ -1,5 +1,12 @@
-section {
-  max-width: 700px;
-  margin: auto;
-  padding-bottom: 1em;
+ion-content {
+  --background: url(/assets/background.png) no-repeat center/cover fixed;
+}
+
+ion-card {
+  max-width: 600px;
+  margin: 1em auto;
+}
+
+.text {
+  text-align: center;
 }

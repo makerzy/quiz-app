@@ -1,28 +1,46 @@
-  <ion-header [translucent]="true">
-    <mat-toolbar color="primary">
-      <mat-toolbar-row>
-        <span>Quiz</span>
-        <span class="spacer"></span>
-        <span class="count">Question: #{{count +1 }}</span>
-        <span>Score: {{score}}/{{questions?.length}}</span>
-      </mat-toolbar-row>
-    </mat-toolbar>
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+      <ion-title color="light" class="ion-padding header">
+        {{questionGroup?.topic}}
+      </ion-title>
+
+
+
+      <h5 slot="primary" color="light" class="score" class="ion-padding">Score: {{score}}/{{questions?.length}}</h5>
+
+    </ion-toolbar>
+
   </ion-header>
 
 
 
 
-  <ion-content [fullscreen]="true">
 
-    <!-- Add Case Text Here -->
-    <div class="case">
-      <h3>{{questionGroup.case}}</h3>
+  <ion-content class="ion-padding">
+
+    <div *ngIf="questionGroup">
+      <!-- Add Case Text Here -->
+      <div class="case">
+        <ion-text color="primary">
+
+          <h3>{{questionGroup.case}}</h3>
+        </ion-text>
+      </div>
+
+
+
+      <app-questions *ngIf="questions" [currentScore]="score" [currentQuestion]="currentQuestion" [count]='count'
+        (sendScore)="getScore($event)" (sendAnswered)="retrieveAnswered($event)"
+        (sendQuestionResponse)="retrieveQuestionResponse($event)" (sendNavRequest)="retrieveNavRequest($event)">
+      </app-questions>
+      <!-- <ion-button *ngIf="  answered === questions.length " color="primary" expand="block" shape="round"
+        (click)="endTest()">End Test</ion-button> -->
+
     </div>
-    <app-questions *ngIf="questions" [currentScore]="score" [currentQuestion]="currentQuestion"
-      (sendScore)="getScore($event)" (sendQuestionResponse)="retrieveQuestionResponse($event)"
-      (sendNavRequest)="retrieveNavRequest($event)">
-    </app-questions>
   </ion-content>
 
-  <app-prev-next [data]="{hideBack: count === 0, hideNext: count === questions.length}"
+  <app-prev-next [completed]="completed" [data]="{hideBack: count === 0, disableNext:!currentQuestion.responseId}"
     (sendNavType)="retrieveNavType($event)"></app-prev-next>

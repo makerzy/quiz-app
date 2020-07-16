@@ -3,6 +3,12 @@
   style="height: 400px; width: 100%;"
   frameborder="0"
   allowfullscreen
-></iframe> -->
+></iframe>
 
-<div id="vp-container"></div>
+<div id="vp-container"></div> -->
+
+<video #video *ngIf="data && platformData$ | async as platformData" [width]="setWidthAndHeight(platformData).width"
+  playsinline [height]="setWidthAndHeight(platformData).height" [controls]="data.controls" [autoplay]="data.autoplay"
+  [loop]="data.loop">
+  <source [src]="data.src" [type]="data.type">
+</video>

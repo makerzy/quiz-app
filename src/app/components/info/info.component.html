@@ -1,14 +1,22 @@
-<ion-list>
-  <div *ngFor="let questionGroup of questionGroups">
-    <div class="questions" (click)="seeQuestion(questionGroup.id)">
+<ion-content>
+  <ion-list class="questions">
+    <div class="card-list" *ngFor="let questionGroup of questionGroups">
 
-      <h2 [innerHTML]="questionGroup.topic"></h2>
-      <ion-item>
-        <p [innerHTML]="questionGroup.case | truncateText:100"></p>
-
-        <mat-divider></mat-divider>
-      </ion-item>
+      <ion-card (click)="seeQuestion(questionGroup)">
+        <ion-card-content>
+          <ion-text color="primary" class="ion-margin ion-margin-start">
+            <h2>{{questionGroup.topic}}</h2>
+          </ion-text>
+          <p [innerHTML]="questionGroup.case|truncateText: 160 "></p>
+        </ion-card-content>
+      </ion-card>
+      <!--    <ion-grid>
+        <ion-row>
+          <ion-col size-md>
+          </ion-col>
+        </ion-row>
+      </ion-grid> -->
     </div>
-  </div>
+  </ion-list>
 
-</ion-list>
+</ion-content>

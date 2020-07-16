@@ -1,11 +1,18 @@
+ion-content {
+  --background: url(/assets/background.png) no-repeat center/cover fixed;
+}
+
 #container {
   text-align: center;
-
   position: absolute;
   left: 0;
   right: 0;
   top: 50%;
   transform: translateY(-50%);
+}
+
+.header {
+  font-weight: 600;
 }
 
 #container strong {
@@ -26,22 +33,20 @@
   text-decoration: none;
 }
 
-
-
-
 span {
   font-size: large;
 }
 
-#correct {
-  color: #84d884;
-}
-
-.count {
-  margin-right: 3em;
+.score {
+  margin-right: 2em;
 }
 
 .case {
+  max-width: 800px;
+  margin: auto;
+}
+
+ion-button {
   max-width: 75%;
-  margin: 2em auto;
+  margin: auto;
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Platform } from "@ionic/angular";
-import { NavService } from "../services/nav.service";
+import { NavService } from "src/app/services/nav.service";
 
 @Component({
   selector: "app-review",
@@ -10,25 +10,10 @@ import { NavService } from "../services/nav.service";
 export class ReviewPage implements OnInit {
   topRowHeight: number;
   bottomRowHeight: number;
-  constructor(private platform: Platform, private navService: NavService) {
-    platform.ready().then(() => {
-      this.topRowHeight = Math.round(platform.height() * 0.7);
-      this.bottomRowHeight = Math.round(platform.height() * 0.3);
-      platform.resize.subscribe(() => {
-        this.topRowHeight = Math.round(platform.height() * 0.7);
-        this.bottomRowHeight = Math.round(platform.height() * 0.3);
-        console.log(
-          "BottomHeight",
-          this.bottomRowHeight,
-          "TopHeight",
-          this.topRowHeight
-        );
-      });
-    });
-  }
+  constructor(private platform: Platform, private navService: NavService) {}
 
   ngOnInit() {}
   goBack() {
-    this.navService.pop();
+    this.navService.setRoot("home");
   }
 }

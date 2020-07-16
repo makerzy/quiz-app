@@ -25,13 +25,8 @@ export class InfoComponent implements OnInit {
     this.questionGroups = this.questionGroupService.getAllQuestionGroups();
   }
 
-  seeQuestion(id: string) {
-    console.log(id);
-    // this.router.navigate(["question"], {
-    //   queryParams: { question: id },
-    // });
-    this.navService.push("question", {
-      queryParams: { question: id },
-    });
+  seeQuestion(params: any) {
+    // console.log(id);
+    this.navService.push("question", { questionGroupId: params });
   }
 }
