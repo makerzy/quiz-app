@@ -32,4 +32,7 @@ export class ScoreComponent implements OnInit {
       (this.userScore / this.totalQuestion) * 100
     );
   }
+  goBack() {
+    this.nav.setRoot("home");
+  }
 }

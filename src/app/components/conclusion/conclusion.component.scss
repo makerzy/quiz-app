@@ -1,7 +1,14 @@
 .container {
   text-align: center;
+  max-width: 800px;
+  line-height: 1.6rem;
+  margin: 3.2rem auto;
 }
 
 ion-icon {
   font-size: 30px;
+}
+
+.margin {
+  margin-top: 40px;
 }

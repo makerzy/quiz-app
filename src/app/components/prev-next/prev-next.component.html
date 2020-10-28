@@ -23,8 +23,7 @@
       </ion-buttons>
       <ion-buttons slot="end" *ngIf="!data.hideNext" (click)="sendNav(next)">
         <ion-button [disabled]="data.disableNext">
-          <span *ngIf="!completed" color="light">NEXT QUESTION</span>
-          <span *ngIf="completed" color="light">END TEST</span>
+          <span color="light">{{completed? "NEXT" : "NEXT QUESTION"}}</span>
         </ion-button>
       </ion-buttons>
     </ion-toolbar>

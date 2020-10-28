@@ -1,0 +1,69 @@
+# type QuizEvent @model
+# @auth(rules: [{ allow: private, provider: userPools }])
+# @key(name: "byCaseId", fields: [ "caseId", "createdAt" ], queryField: "quizEventsByCaseIdAndCreatedAt")
+# {
+#   id: ID!
+#   caseId: String!
+#   createdAt: String
+#   updatedAt: String
+#   userEmail: String
+#   first: String
+#   last: String
+#   answeredQuestions: [AnsweredQuestions]
+#   finished: Boolean
+#   score: Int
+# }
+
+# type AnsweredQuestions {
+#   questionsId: String!
+#   answerId: String
+#   isCorrect: Boolean
+# }
+
+type QuizEvent
+  @model
+  @auth(rules: [{ allow: private, provider: userPools }])
+  @key(
+    name: "byCaseId"
+    fields: ["caseId", "createdAt"]
+    queryField: "quizEventsByCaseIdAndCreatedAt"
+  ) {
+  id: ID!
+  caseId: String!
+  instanceId: String!
+  createdAt: String
+  updatedAt: String
+  userEmail: String
+  first: String
+  last: String
+  answeredQuestions: [AnsweredQuestions]
+    @connection(keyName: "byInstance", fields: ["instanceId"])
+  finished: Boolean
+  score: Int
+}
+
+type AnsweredQuestions
+  @model
+  @auth(rules: [{ allow: private, provider: userPools }])
+  @key(name: "byInstance", fields: ["instanceId", "createdAt"])
+  @key(
+    name: "byCaseId"
+    fields: ["caseId", "createdAt"]
+    queryField: "answeredQuestionsByCaseIdAndCreatedAt"
+  ) {
+  id: ID!
+  instanceId: String!
+  caseId: String!
+  questionsId: String!
+  createdAt: String
+  updatedAt: String
+  optionId: String
+  isCorrect: Boolean
+  questionData: [QuestionData]
+}
+
+type QuestionData {
+  questionId: String
+  selectedOptionId: String
+  correctAnswerId: String
+}

@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
-import { v4 as uuid } from "uuid";
 import { Question } from "src/app/interfaces/question.interface";
-import { translations } from "../../translations";
+import { translations } from "../language-service/translations";
 const questions = translations.en.questions;
 const options = translations.en.options;
 
@@ -12,8 +11,7 @@ export class QuestionListService {
   questionList: Question[] = [
     {
       id: "1",
-      groupId: `pain-${uuid()}`,
-
+      groupId: "thighKneePain_01",
       order: 1,
       text: questions["Text1"],
       correctAnswerId: "a1",
@@ -37,7 +35,7 @@ export class QuestionListService {
           id: "a1",
           text: options["a1Text"],
           info: options["a1Info"],
-          userSelectionPercentage: 8,
+          userSelectionPercentage: 0,
           content: [
             {
               type: "video",
@@ -53,7 +51,7 @@ export class QuestionListService {
           id: "a2",
           text: options["a2Text"],
           info: options["a2Info"],
-          userSelectionPercentage: 9,
+          userSelectionPercentage: 0,
           content: [
             {
               type: "video",
@@ -69,7 +67,7 @@ export class QuestionListService {
           id: "a3",
           text: options["a3Text"],
           info: options["a3Info"],
-          userSelectionPercentage: 51,
+          userSelectionPercentage: 0,
           content: [
             {
               type: "video",
@@ -84,7 +82,7 @@ export class QuestionListService {
           id: "a4",
           text: options["a4Text"],
           info: options["a4Info"],
-          userSelectionPercentage: 32,
+          userSelectionPercentage: 0,
           content: [
             {
               type: "video",
@@ -101,7 +99,7 @@ export class QuestionListService {
     {
       id: "2",
       order: 2,
-      groupId: `pain-${uuid()}`,
+      groupId: "thighKneePain_01",
       correctAnswerId: "b3",
       text: questions["Text2"],
       bonusContent: [],
@@ -110,7 +108,7 @@ export class QuestionListService {
           id: "b1",
           text: options["b1Text"],
           info: options["b1Info"],
-          userSelectionPercentage: 12,
+          userSelectionPercentage: 0,
           content: [
             {
               type: "video",
@@ -133,7 +131,7 @@ export class QuestionListService {
           id: "b2",
           text: options["b2Text"],
           info: options["b2Info"],
-          userSelectionPercentage: 29,
+          userSelectionPercentage: 0,
           content: [
             {
               type: "video",
@@ -149,7 +147,7 @@ export class QuestionListService {
           id: "b3",
           text: options["b3Text"],
           info: options["b3Info"],
-          userSelectionPercentage: 28,
+          userSelectionPercentage: 0,
           content: [
             {
               type: "video",
@@ -165,7 +163,7 @@ export class QuestionListService {
           id: "b4",
           text: options["b4Text"],
           info: options["b4Info"],
-          userSelectionPercentage: 31,
+          userSelectionPercentage: 0,
           content: [
             {
               type: "video",
@@ -182,7 +180,7 @@ export class QuestionListService {
     {
       id: "3",
       order: 3,
-      groupId: `pain-${uuid()}`,
+      groupId: "thighKneePain_01",
       correctAnswerId: "c2",
       text: questions["Text3"],
       bonusButtonText: options["bonusButtonText"],
@@ -200,7 +198,7 @@ export class QuestionListService {
           id: "c1",
           text: options["c1Text"],
           info: options["c1Info"],
-          userSelectionPercentage: 24,
+          userSelectionPercentage: 0,
           content: [
             {
               type: "video",
@@ -216,7 +214,7 @@ export class QuestionListService {
           id: "c2",
           text: options["c2Text"],
           info: options["c2Info"],
-          userSelectionPercentage: 17,
+          userSelectionPercentage: 0,
           content: [
             {
               type: "video",
@@ -232,7 +230,7 @@ export class QuestionListService {
           id: "c3",
           text: options["c3Text"],
           info: options["c3Info"],
-          userSelectionPercentage: 18,
+          userSelectionPercentage: 0,
           content: [
             {
               type: "video",
@@ -248,7 +246,7 @@ export class QuestionListService {
           id: "c4",
           text: options["c4Text"],
           info: options["c4Info"],
-          userSelectionPercentage: 41,
+          userSelectionPercentage: 0,
           content: [
             {
               type: "video",
@@ -265,7 +263,7 @@ export class QuestionListService {
     {
       id: "4",
       order: 4,
-      groupId: `pain-${uuid()}`,
+      groupId: "thighKneePain_01",
       correctAnswerId: "d3",
       text: questions["Text4"],
       bonusContent: [],
@@ -274,7 +272,7 @@ export class QuestionListService {
           id: "d1",
           text: options["d1Text"],
           info: options["d1Info"],
-          userSelectionPercentage: 24,
+          userSelectionPercentage: 0,
           content: [
             {
               type: "video",
@@ -290,7 +288,7 @@ export class QuestionListService {
           id: "d2",
           text: options["d2Text"],
           info: options["d2Info"],
-          userSelectionPercentage: 17,
+          userSelectionPercentage: 0,
           content: [
             {
               type: "video",
@@ -306,7 +304,7 @@ export class QuestionListService {
           id: "d3",
           text: options["d3Text"],
           info: options["d3Info"],
-          userSelectionPercentage: 18,
+          userSelectionPercentage: 0,
           content: [
             {
               type: "video",
@@ -322,7 +320,7 @@ export class QuestionListService {
           id: "d4",
           text: options["d4Text"],
           info: options["d4Info"],
-          userSelectionPercentage: 41,
+          userSelectionPercentage: 0,
           content: [],
           buttonText: options["d4_buttonText"],
         },
@@ -333,9 +331,7 @@ export class QuestionListService {
   constructor() {}
 
   getQuestionsByGroupId(id: string) {
-    return this.questionList.filter(
-      ({ groupId }) => groupId.split("-")[0] === id
-    );
+    return this.questionList.filter(({ groupId }) => groupId === id);
   }
 
   getQuestionById(_id: string) {

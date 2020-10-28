@@ -1,0 +1,148 @@
+# this is an auto generated file. This will be overwritten
+subscription OnCreateQuizEvent {
+  onCreateQuizEvent {
+    id
+    caseId
+    instanceId
+    createdAt
+    updatedAt
+    userEmail
+    first
+    last
+    answeredQuestions {
+      items {
+        id
+        instanceId
+        caseId
+        questionsId
+        createdAt
+        updatedAt
+        optionId
+        isCorrect
+        questionData {
+          questionId
+          selectedOptionId
+          correctAnswerId
+        }
+      }
+      nextToken
+    }
+    finished
+    score
+  }
+}
+subscription OnUpdateQuizEvent {
+  onUpdateQuizEvent {
+    id
+    caseId
+    instanceId
+    createdAt
+    updatedAt
+    userEmail
+    first
+    last
+    answeredQuestions {
+      items {
+        id
+        instanceId
+        caseId
+        questionsId
+        createdAt
+        updatedAt
+        optionId
+        isCorrect
+        questionData {
+          questionId
+          selectedOptionId
+          correctAnswerId
+        }
+      }
+      nextToken
+    }
+    finished
+    score
+  }
+}
+subscription OnDeleteQuizEvent {
+  onDeleteQuizEvent {
+    id
+    caseId
+    instanceId
+    createdAt
+    updatedAt
+    userEmail
+    first
+    last
+    answeredQuestions {
+      items {
+        id
+        instanceId
+        caseId
+        questionsId
+        createdAt
+        updatedAt
+        optionId
+        isCorrect
+        questionData {
+          questionId
+          selectedOptionId
+          correctAnswerId
+        }
+      }
+      nextToken
+    }
+    finished
+    score
+  }
+}
+subscription OnCreateAnsweredQuestions {
+  onCreateAnsweredQuestions {
+    id
+    instanceId
+    caseId
+    questionsId
+    createdAt
+    updatedAt
+    optionId
+    isCorrect
+    questionData {
+      questionId
+      selectedOptionId
+      correctAnswerId
+    }
+  }
+}
+subscription OnUpdateAnsweredQuestions {
+  onUpdateAnsweredQuestions {
+    id
+    instanceId
+    caseId
+    questionsId
+    createdAt
+    updatedAt
+    optionId
+    isCorrect
+    questionData {
+      questionId
+      selectedOptionId
+      correctAnswerId
+    }
+  }
+}
+subscription OnDeleteAnsweredQuestions {
+  onDeleteAnsweredQuestions {
+    id
+    instanceId
+    caseId
+    questionsId
+    createdAt
+    updatedAt
+    optionId
+    isCorrect
+    questionData {
+      questionId
+      selectedOptionId
+      correctAnswerId
+    }
+  }
+}

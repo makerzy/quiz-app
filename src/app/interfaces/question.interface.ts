@@ -34,3 +34,10 @@ export interface ContentObject {
   text?: string;
   url?: string;
 }
+
+export interface URLParams {
+  questionGroupId?: string;
+  userEmail?: string;
+  firstName?: string;
+  lastName?: string;
+}

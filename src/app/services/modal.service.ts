@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { ModalController } from "@ionic/angular";
-import { ModalPage } from "../modal/search-modal.page";
+import { ModalPage } from "src/app/pages/modal/search-modal.page";
 
 @Injectable({
   providedIn: "root",

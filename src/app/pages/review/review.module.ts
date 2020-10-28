@@ -1,0 +1,24 @@
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { FormsModule } from "@angular/forms";
+
+import { IonicModule } from "@ionic/angular";
+
+import { ReviewPageRoutingModule } from "./review-routing.module";
+
+import { ReviewPage } from "./review.page";
+import { ComponentsModule } from "src/app/components/components/components.module";
+import { MaterialModule } from "src/app/material.module";
+
+@NgModule({
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    ReviewPageRoutingModule,
+    ComponentsModule,
+    MaterialModule,
+  ],
+  declarations: [ReviewPage],
+})
+export class ReviewPageModule {}

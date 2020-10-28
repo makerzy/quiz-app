@@ -5,12 +5,19 @@ const routes: Routes = [
   {
     path: "home",
     loadChildren: () =>
-      import("./home/home.module").then((m) => m.HomePageModule),
+      import("./pages/home/home.module").then((m) => m.HomePageModule),
   },
   {
     path: "",
     redirectTo: "home",
     pathMatch: "full",
+  },
+  {
+    path: "question",
+    loadChildren: () =>
+      import("./pages/question/question.module").then(
+        (m) => m.QuestionPageModule
+      ),
   },
   {
     path: "content",
@@ -20,14 +27,16 @@ const routes: Routes = [
       ),
   },
   {
-    path: "question",
-    loadChildren: () =>
-      import("./question/question.module").then((m) => m.QuestionPageModule),
-  },
-  {
     path: "review",
     loadChildren: () =>
-      import("./review/review.module").then((m) => m.ReviewPageModule),
+      import("./pages/review/review.module").then((m) => m.ReviewPageModule),
+  },
+  {
+    path: "test-page",
+    loadChildren: () =>
+      import("./pages/test-page/test-page.module").then(
+        (m) => m.TestPagePageModule
+      ),
   },
 ];
 

@@ -1,0 +1,190 @@
+# this is an auto generated file. This will be overwritten
+query GetQuizEvent($id: ID!) {
+  getQuizEvent(id: $id) {
+    id
+    caseId
+    instanceId
+    createdAt
+    updatedAt
+    userEmail
+    first
+    last
+    answeredQuestions {
+      items {
+        id
+        instanceId
+        caseId
+        questionsId
+        createdAt
+        updatedAt
+        optionId
+        isCorrect
+        questionData {
+          questionId
+          selectedOptionId
+          correctAnswerId
+        }
+      }
+      nextToken
+    }
+    finished
+    score
+  }
+}
+query ListQuizEvents(
+  $filter: ModelQuizEventFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listQuizEvents(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      caseId
+      instanceId
+      createdAt
+      updatedAt
+      userEmail
+      first
+      last
+      answeredQuestions {
+        items {
+          id
+          instanceId
+          caseId
+          questionsId
+          createdAt
+          updatedAt
+          optionId
+          isCorrect
+        }
+        nextToken
+      }
+      finished
+      score
+    }
+    nextToken
+  }
+}
+query GetAnsweredQuestions($id: ID!) {
+  getAnsweredQuestions(id: $id) {
+    id
+    instanceId
+    caseId
+    questionsId
+    createdAt
+    updatedAt
+    optionId
+    isCorrect
+    questionData {
+      questionId
+      selectedOptionId
+      correctAnswerId
+    }
+  }
+}
+query ListAnsweredQuestionss(
+  $filter: ModelAnsweredQuestionsFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listAnsweredQuestionss(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      instanceId
+      caseId
+      questionsId
+      createdAt
+      updatedAt
+      optionId
+      isCorrect
+      questionData {
+        questionId
+        selectedOptionId
+        correctAnswerId
+      }
+    }
+    nextToken
+  }
+}
+query QuizEventsByCaseIdAndCreatedAt(
+  $caseId: String
+  $createdAt: ModelStringKeyConditionInput
+  $sortDirection: ModelSortDirection
+  $filter: ModelQuizEventFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  quizEventsByCaseIdAndCreatedAt(
+    caseId: $caseId
+    createdAt: $createdAt
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      caseId
+      instanceId
+      createdAt
+      updatedAt
+      userEmail
+      first
+      last
+      answeredQuestions {
+        items {
+          id
+          instanceId
+          caseId
+          questionsId
+          createdAt
+          updatedAt
+          optionId
+          isCorrect
+        }
+        nextToken
+      }
+      finished
+      score
+    }
+    nextToken
+  }
+}
+query AnsweredQuestionsByCaseIdAndCreatedAt(
+  $caseId: String
+  $createdAt: ModelStringKeyConditionInput
+  $sortDirection: ModelSortDirection
+  $filter: ModelAnsweredQuestionsFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  answeredQuestionsByCaseIdAndCreatedAt(
+    caseId: $caseId
+    createdAt: $createdAt
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      instanceId
+      caseId
+      questionsId
+      createdAt
+      updatedAt
+      optionId
+      isCorrect
+      questionData {
+        questionId
+        selectedOptionId
+        correctAnswerId
+      }
+    }
+    nextToken
+  }
+}

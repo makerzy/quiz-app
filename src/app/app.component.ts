@@ -1,10 +1,8 @@
 import { Component } from "@angular/core";
 import { NavService } from "./services/nav.service";
+import { URLParams } from "src/app/interfaces/question.interface";
 
-export interface URLParams {
-  questionGroupId?: string;
-  userEmail?: string;
-}
+//https://jseducation-dev.web.app?questionGroupId=pain
 
 @Component({
   selector: "app-root",
@@ -15,11 +13,12 @@ export class AppComponent {
   urlParams = {} as URLParams;
 
   constructor(private navService: NavService) {
+    this.getUrlParms();
     this.initializeApp();
   }
 
   async initializeApp() {
-    this.getUrlParms();
+    this.navService.setRoot("home");
 
     if (this.urlParams.userEmail) {
       // save email to database
@@ -27,14 +26,14 @@ export class AppComponent {
 
     if (this.urlParams.questionGroupId) {
       return this.navService.setRoot("question", {
-        questionGroupId: this.urlParams.questionGroupId,
+        urlParams: this.urlParams,
       });
       // navigate to question page with the questionId as a param
     }
-    return this.navService.setRoot("home");
   }
 
   getUrlParms() {
+    console.log(document.URL.indexOf("?"));
     if (document.URL.indexOf("?") > 0) {
       const paramString = document.URL.split("?")[1];
       const params = paramString.split("&");
@@ -47,12 +46,18 @@ export class AppComponent {
       });
       const findEmail = paramMap.find(({ key }) => key === "email");
       if (findEmail) this.urlParams.userEmail = findEmail.value;
+      const findFirst = paramMap.find(({ key }) => key === "firstname");
+      if (findFirst) this.urlParams.firstName = findFirst.value;
+
+      const findLast = paramMap.find(({ key }) => key === "lastname");
+      if (findLast) this.urlParams.lastName = findLast.value;
 
       const findQuestionGroupId = paramMap.find(
         ({ key }) => key === "questionGroupId"
       );
       if (findQuestionGroupId)
         this.urlParams.questionGroupId = findQuestionGroupId.value;
-    }
+      console.log("URLParams: ", this.urlParams);
+    } else return;
   }
 }

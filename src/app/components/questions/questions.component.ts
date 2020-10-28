@@ -16,6 +16,8 @@ export class QuestionsComponent {
   @Output()
   sendScore: EventEmitter<number> = new EventEmitter();
   @Output()
+  sendQuestionData: EventEmitter<any> = new EventEmitter();
+  @Output()
   sendAnswered: EventEmitter<number> = new EventEmitter();
   @Output() sendNavRequest: EventEmitter<{
     url: string;
@@ -52,6 +54,12 @@ export class QuestionsComponent {
     question.isCorrect = this.determineIsCorrect();
     this.sendScore.emit(this.currentScore);
     question.responseId = this.selectedOption;
+    this.sendQuestionResponse.emit(question);
+    this.sendQuestionData.emit({
+      questionId: this.currentQuestion.id,
+      selectedOptionId: this.currentQuestion.responseId,
+      correctAnswerId: this.currentQuestion.correctAnswerId,
+    });
   }
 
   determineIsCorrect() {
@@ -59,7 +67,6 @@ export class QuestionsComponent {
     const selectedAnswerId = this.selectedOption;
     if (correctAnswerId === selectedAnswerId) {
       this.currentScore++;
-
       return true;
     }
     return false;

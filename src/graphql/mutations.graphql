@@ -1,0 +1,166 @@
+# this is an auto generated file. This will be overwritten
+mutation CreateQuizEvent(
+  $input: CreateQuizEventInput!
+  $condition: ModelQuizEventConditionInput
+) {
+  createQuizEvent(input: $input, condition: $condition) {
+    id
+    caseId
+    instanceId
+    createdAt
+    updatedAt
+    userEmail
+    first
+    last
+    answeredQuestions {
+      items {
+        id
+        instanceId
+        caseId
+        questionsId
+        createdAt
+        updatedAt
+        optionId
+        isCorrect
+        questionData {
+          questionId
+          selectedOptionId
+          correctAnswerId
+        }
+      }
+      nextToken
+    }
+    finished
+    score
+  }
+}
+mutation UpdateQuizEvent(
+  $input: UpdateQuizEventInput!
+  $condition: ModelQuizEventConditionInput
+) {
+  updateQuizEvent(input: $input, condition: $condition) {
+    id
+    caseId
+    instanceId
+    createdAt
+    updatedAt
+    userEmail
+    first
+    last
+    answeredQuestions {
+      items {
+        id
+        instanceId
+        caseId
+        questionsId
+        createdAt
+        updatedAt
+        optionId
+        isCorrect
+        questionData {
+          questionId
+          selectedOptionId
+          correctAnswerId
+        }
+      }
+      nextToken
+    }
+    finished
+    score
+  }
+}
+mutation DeleteQuizEvent(
+  $input: DeleteQuizEventInput!
+  $condition: ModelQuizEventConditionInput
+) {
+  deleteQuizEvent(input: $input, condition: $condition) {
+    id
+    caseId
+    instanceId
+    createdAt
+    updatedAt
+    userEmail
+    first
+    last
+    answeredQuestions {
+      items {
+        id
+        instanceId
+        caseId
+        questionsId
+        createdAt
+        updatedAt
+        optionId
+        isCorrect
+        questionData {
+          questionId
+          selectedOptionId
+          correctAnswerId
+        }
+      }
+      nextToken
+    }
+    finished
+    score
+  }
+}
+mutation CreateAnsweredQuestions(
+  $input: CreateAnsweredQuestionsInput!
+  $condition: ModelAnsweredQuestionsConditionInput
+) {
+  createAnsweredQuestions(input: $input, condition: $condition) {
+    id
+    instanceId
+    caseId
+    questionsId
+    createdAt
+    updatedAt
+    optionId
+    isCorrect
+    questionData {
+      questionId
+      selectedOptionId
+      correctAnswerId
+    }
+  }
+}
+mutation UpdateAnsweredQuestions(
+  $input: UpdateAnsweredQuestionsInput!
+  $condition: ModelAnsweredQuestionsConditionInput
+) {
+  updateAnsweredQuestions(input: $input, condition: $condition) {
+    id
+    instanceId
+    caseId
+    questionsId
+    createdAt
+    updatedAt
+    optionId
+    isCorrect
+    questionData {
+      questionId
+      selectedOptionId
+      correctAnswerId
+    }
+  }
+}
+mutation DeleteAnsweredQuestions(
+  $input: DeleteAnsweredQuestionsInput!
+  $condition: ModelAnsweredQuestionsConditionInput
+) {
+  deleteAnsweredQuestions(input: $input, condition: $condition) {
+    id
+    instanceId
+    caseId
+    questionsId
+    createdAt
+    updatedAt
+    optionId
+    isCorrect
+    questionData {
+      questionId
+      selectedOptionId
+      correctAnswerId
+    }
+  }
+}
