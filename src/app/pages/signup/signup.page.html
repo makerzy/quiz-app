@@ -1,0 +1,34 @@
+<ion-content>
+  <div class="center">
+    <ion-card>
+      <div class="inner">
+        <mat-form-field>
+          <mat-label>Enter Password</mat-label>
+          <input
+            matInput
+            [(ngModel)]="input"
+            name="content"
+            [type]="'password' "
+            (keydown)="handleSubmit($event)"
+            required
+          />
+        </mat-form-field>
+      </div>
+      <ion-text
+        class="ion-margin ion-padding"
+        color="danger"
+        *ngIf="wrongPassword && input!=='' && this.submitted"
+      >
+        Wrong password
+      </ion-text>
+      <ion-button
+        [disabled]="input===''"
+        shape="round"
+        expand="full"
+        color="primary"
+        (click)="validate()"
+        >submit</ion-button
+      >
+    </ion-card>
+  </div>
+</ion-content>

@@ -1,8 +1,13 @@
 import { Injectable } from "@angular/core";
 import API, { graphqlOperation } from "@aws-amplify/api-graphql";
 import {
+  CreateAnsweredQuestionsInput,
+  CreateAnsweredQuestionsMutation,
   CreateQuizEventInput,
   CreateQuizEventMutation,
+  ModelAnsweredQuestionsConditionInput,
+  UpdateAnsweredQuestionsInput,
+  UpdateAnsweredQuestionsMutation,
   UpdateQuizEventInput,
   UpdateQuizEventMutation,
 } from "src/API.service";
@@ -101,5 +106,66 @@ export class APIQuizEventService {
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
     return <{ id: string }>response.data.deleteQuizEvent;
+  }
+
+  async createAnsweredQuestions(
+    input: CreateAnsweredQuestionsInput,
+    condition?: ModelAnsweredQuestionsConditionInput
+  ): Promise<CreateAnsweredQuestionsMutation> {
+    const statement = `mutation CreateAnsweredQuestions($input: CreateAnsweredQuestionsInput!, $condition: ModelAnsweredQuestionsConditionInput) {
+        createAnsweredQuestions(input: $input, condition: $condition) {        
+          id
+          instanceId
+          caseId
+          questionsId
+          createdAt
+          updatedAt
+          optionId
+          isCorrect
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input,
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <CreateAnsweredQuestionsMutation>(
+      response.data.createAnsweredQuestions
+    );
+  }
+
+  async updateAnsweredQuestions(
+    input: UpdateAnsweredQuestionsInput,
+    condition?: ModelAnsweredQuestionsConditionInput
+  ): Promise<UpdateAnsweredQuestionsMutation> {
+    const statement = `mutation UpdateAnsweredQuestions($input: UpdateAnsweredQuestionsInput!, $condition: ModelAnsweredQuestionsConditionInput) {
+        updateAnsweredQuestions(input: $input, condition: $condition) {
+          __typename
+          id
+          instanceId
+          caseId
+          questionsId
+          createdAt
+          updatedAt
+          optionId
+          isCorrect
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input,
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <UpdateAnsweredQuestionsMutation>(
+      response.data.updateAnsweredQuestions
+    );
   }
 }

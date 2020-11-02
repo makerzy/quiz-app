@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter } from "@angular/core";
 import { Question, ContentObject } from "src/app/interfaces/question.interface";
+import { APIQuizEventService } from "src/app/services/dynamo/api.quiz-event.service";
 
 @Component({
   selector: "app-questions",
@@ -59,10 +60,12 @@ export class QuestionsComponent {
       questionId: this.currentQuestion.id,
       selectedOptionId: this.currentQuestion.responseId,
       correctAnswerId: this.currentQuestion.correctAnswerId,
+      isCorrect: question.isCorrect,
     });
   }
 
   determineIsCorrect() {
+    console.log("currentQuestion: ", this.currentQuestion);
     const correctAnswerId = this.currentQuestion.correctAnswerId;
     const selectedAnswerId = this.selectedOption;
     if (correctAnswerId === selectedAnswerId) {

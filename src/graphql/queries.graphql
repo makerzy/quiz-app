@@ -19,11 +19,6 @@ query GetQuizEvent($id: ID!) {
         updatedAt
         optionId
         isCorrect
-        questionData {
-          questionId
-          selectedOptionId
-          correctAnswerId
-        }
       }
       nextToken
     }
@@ -75,11 +70,6 @@ query GetAnsweredQuestions($id: ID!) {
     updatedAt
     optionId
     isCorrect
-    questionData {
-      questionId
-      selectedOptionId
-      correctAnswerId
-    }
   }
 }
 query ListAnsweredQuestionss(
@@ -101,11 +91,6 @@ query ListAnsweredQuestionss(
       updatedAt
       optionId
       isCorrect
-      questionData {
-        questionId
-        selectedOptionId
-        correctAnswerId
-      }
     }
     nextToken
   }
@@ -179,11 +164,6 @@ query AnsweredQuestionsByCaseIdAndCreatedAt(
       updatedAt
       optionId
       isCorrect
-      questionData {
-        questionId
-        selectedOptionId
-        correctAnswerId
-      }
     }
     nextToken
   }

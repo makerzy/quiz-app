@@ -17,6 +17,8 @@ export interface Question {
   options: Option[];
   bonusContent?: ContentObject[];
   bonusButtonText?: string;
+  questionExtrasTop?: string[];
+  questionExtrasBottom?: string[];
 }
 
 export interface Option {

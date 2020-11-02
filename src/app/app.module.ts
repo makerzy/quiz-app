@@ -11,6 +11,12 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ServiceWorkerModule } from "@angular/service-worker";
 import { environment } from "src/environments/environment";
 
+/* Add Amplify imports */
+import Amplify from "aws-amplify";
+import awsconfig from "../aws-exports";
+
+/* Configure Amplify resources */
+Amplify.configure(awsconfig);
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -21,6 +27,7 @@ import { environment } from "src/environments/environment";
     RouterModule,
     MaterialModule,
     BrowserAnimationsModule,
+
     ServiceWorkerModule.register("ngsw-worker.js", {
       enabled: environment.production,
     }),

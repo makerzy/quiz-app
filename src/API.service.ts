@@ -5,6 +5,10 @@ import { Injectable } from "@angular/core";
 import API, { graphqlOperation, GraphQLResult } from "@aws-amplify/api-graphql";
 import { Observable } from "zen-observable-ts";
 
+export interface SubscriptionResponse<T> {
+  value: GraphQLResult<T>;
+}
+
 export type CreateQuizEventInput = {
   id?: string | null;
   caseId: string;
@@ -117,13 +121,6 @@ export type CreateAnsweredQuestionsInput = {
   updatedAt?: string | null;
   optionId?: string | null;
   isCorrect?: boolean | null;
-  questionData?: Array<QuestionDataInput | null> | null;
-};
-
-export type QuestionDataInput = {
-  questionId?: string | null;
-  selectedOptionId?: string | null;
-  correctAnswerId?: string | null;
 };
 
 export type ModelAnsweredQuestionsConditionInput = {
@@ -148,7 +145,6 @@ export type UpdateAnsweredQuestionsInput = {
   updatedAt?: string | null;
   optionId?: string | null;
   isCorrect?: boolean | null;
-  questionData?: Array<QuestionDataInput | null> | null;
 };
 
 export type DeleteAnsweredQuestionsInput = {
@@ -218,7 +214,7 @@ export enum ModelSortDirection {
 
 export type CreateQuizEventMutation = {
   __typename: "QuizEvent";
-  id: string;
+  id: string | null;
   caseId: string;
   instanceId: string;
   createdAt: string | null;
@@ -230,7 +226,7 @@ export type CreateQuizEventMutation = {
     __typename: "ModelAnsweredQuestionsConnection";
     items: Array<{
       __typename: "AnsweredQuestions";
-      id: string;
+      id: string | null;
       instanceId: string;
       caseId: string;
       questionsId: string;
@@ -238,12 +234,6 @@ export type CreateQuizEventMutation = {
       updatedAt: string | null;
       optionId: string | null;
       isCorrect: boolean | null;
-      questionData: Array<{
-        __typename: "QuestionData";
-        questionId: string | null;
-        selectedOptionId: string | null;
-        correctAnswerId: string | null;
-      } | null> | null;
     } | null> | null;
     nextToken: string | null;
   } | null;
@@ -253,7 +243,7 @@ export type CreateQuizEventMutation = {
 
 export type UpdateQuizEventMutation = {
   __typename: "QuizEvent";
-  id: string;
+  id: string | null;
   caseId: string;
   instanceId: string;
   createdAt: string | null;
@@ -265,7 +255,7 @@ export type UpdateQuizEventMutation = {
     __typename: "ModelAnsweredQuestionsConnection";
     items: Array<{
       __typename: "AnsweredQuestions";
-      id: string;
+      id: string | null;
       instanceId: string;
       caseId: string;
       questionsId: string;
@@ -273,12 +263,6 @@ export type UpdateQuizEventMutation = {
       updatedAt: string | null;
       optionId: string | null;
       isCorrect: boolean | null;
-      questionData: Array<{
-        __typename: "QuestionData";
-        questionId: string | null;
-        selectedOptionId: string | null;
-        correctAnswerId: string | null;
-      } | null> | null;
     } | null> | null;
     nextToken: string | null;
   } | null;
@@ -288,7 +272,7 @@ export type UpdateQuizEventMutation = {
 
 export type DeleteQuizEventMutation = {
   __typename: "QuizEvent";
-  id: string;
+  id: string | null;
   caseId: string;
   instanceId: string;
   createdAt: string | null;
@@ -300,7 +284,7 @@ export type DeleteQuizEventMutation = {
     __typename: "ModelAnsweredQuestionsConnection";
     items: Array<{
       __typename: "AnsweredQuestions";
-      id: string;
+      id: string | null;
       instanceId: string;
       caseId: string;
       questionsId: string;
@@ -308,12 +292,6 @@ export type DeleteQuizEventMutation = {
       updatedAt: string | null;
       optionId: string | null;
       isCorrect: boolean | null;
-      questionData: Array<{
-        __typename: "QuestionData";
-        questionId: string | null;
-        selectedOptionId: string | null;
-        correctAnswerId: string | null;
-      } | null> | null;
     } | null> | null;
     nextToken: string | null;
   } | null;
@@ -323,7 +301,7 @@ export type DeleteQuizEventMutation = {
 
 export type CreateAnsweredQuestionsMutation = {
   __typename: "AnsweredQuestions";
-  id: string;
+  id: string | null;
   instanceId: string;
   caseId: string;
   questionsId: string;
@@ -331,17 +309,11 @@ export type CreateAnsweredQuestionsMutation = {
   updatedAt: string | null;
   optionId: string | null;
   isCorrect: boolean | null;
-  questionData: Array<{
-    __typename: "QuestionData";
-    questionId: string | null;
-    selectedOptionId: string | null;
-    correctAnswerId: string | null;
-  } | null> | null;
 };
 
 export type UpdateAnsweredQuestionsMutation = {
   __typename: "AnsweredQuestions";
-  id: string;
+  id: string | null;
   instanceId: string;
   caseId: string;
   questionsId: string;
@@ -349,17 +321,11 @@ export type UpdateAnsweredQuestionsMutation = {
   updatedAt: string | null;
   optionId: string | null;
   isCorrect: boolean | null;
-  questionData: Array<{
-    __typename: "QuestionData";
-    questionId: string | null;
-    selectedOptionId: string | null;
-    correctAnswerId: string | null;
-  } | null> | null;
 };
 
 export type DeleteAnsweredQuestionsMutation = {
   __typename: "AnsweredQuestions";
-  id: string;
+  id: string | null;
   instanceId: string;
   caseId: string;
   questionsId: string;
@@ -367,17 +333,11 @@ export type DeleteAnsweredQuestionsMutation = {
   updatedAt: string | null;
   optionId: string | null;
   isCorrect: boolean | null;
-  questionData: Array<{
-    __typename: "QuestionData";
-    questionId: string | null;
-    selectedOptionId: string | null;
-    correctAnswerId: string | null;
-  } | null> | null;
 };
 
 export type GetQuizEventQuery = {
   __typename: "QuizEvent";
-  id: string;
+  id: string | null;
   caseId: string;
   instanceId: string;
   createdAt: string | null;
@@ -389,7 +349,7 @@ export type GetQuizEventQuery = {
     __typename: "ModelAnsweredQuestionsConnection";
     items: Array<{
       __typename: "AnsweredQuestions";
-      id: string;
+      id: string | null;
       instanceId: string;
       caseId: string;
       questionsId: string;
@@ -397,12 +357,6 @@ export type GetQuizEventQuery = {
       updatedAt: string | null;
       optionId: string | null;
       isCorrect: boolean | null;
-      questionData: Array<{
-        __typename: "QuestionData";
-        questionId: string | null;
-        selectedOptionId: string | null;
-        correctAnswerId: string | null;
-      } | null> | null;
     } | null> | null;
     nextToken: string | null;
   } | null;
@@ -414,7 +368,7 @@ export type ListQuizEventsQuery = {
   __typename: "ModelQuizEventConnection";
   items: Array<{
     __typename: "QuizEvent";
-    id: string;
+    id: string | null;
     caseId: string;
     instanceId: string;
     createdAt: string | null;
@@ -426,7 +380,7 @@ export type ListQuizEventsQuery = {
       __typename: "ModelAnsweredQuestionsConnection";
       items: Array<{
         __typename: "AnsweredQuestions";
-        id: string;
+        id: string | null;
         instanceId: string;
         caseId: string;
         questionsId: string;
@@ -445,7 +399,7 @@ export type ListQuizEventsQuery = {
 
 export type GetAnsweredQuestionsQuery = {
   __typename: "AnsweredQuestions";
-  id: string;
+  id: string | null;
   instanceId: string;
   caseId: string;
   questionsId: string;
@@ -453,19 +407,13 @@ export type GetAnsweredQuestionsQuery = {
   updatedAt: string | null;
   optionId: string | null;
   isCorrect: boolean | null;
-  questionData: Array<{
-    __typename: "QuestionData";
-    questionId: string | null;
-    selectedOptionId: string | null;
-    correctAnswerId: string | null;
-  } | null> | null;
 };
 
 export type ListAnsweredQuestionssQuery = {
   __typename: "ModelAnsweredQuestionsConnection";
   items: Array<{
     __typename: "AnsweredQuestions";
-    id: string;
+    id: string | null;
     instanceId: string;
     caseId: string;
     questionsId: string;
@@ -473,12 +421,6 @@ export type ListAnsweredQuestionssQuery = {
     updatedAt: string | null;
     optionId: string | null;
     isCorrect: boolean | null;
-    questionData: Array<{
-      __typename: "QuestionData";
-      questionId: string | null;
-      selectedOptionId: string | null;
-      correctAnswerId: string | null;
-    } | null> | null;
   } | null> | null;
   nextToken: string | null;
 };
@@ -487,7 +429,7 @@ export type QuizEventsByCaseIdAndCreatedAtQuery = {
   __typename: "ModelQuizEventConnection";
   items: Array<{
     __typename: "QuizEvent";
-    id: string;
+    id: string | null;
     caseId: string;
     instanceId: string;
     createdAt: string | null;
@@ -499,7 +441,7 @@ export type QuizEventsByCaseIdAndCreatedAtQuery = {
       __typename: "ModelAnsweredQuestionsConnection";
       items: Array<{
         __typename: "AnsweredQuestions";
-        id: string;
+        id: string | null;
         instanceId: string;
         caseId: string;
         questionsId: string;
@@ -520,7 +462,7 @@ export type AnsweredQuestionsByCaseIdAndCreatedAtQuery = {
   __typename: "ModelAnsweredQuestionsConnection";
   items: Array<{
     __typename: "AnsweredQuestions";
-    id: string;
+    id: string | null;
     instanceId: string;
     caseId: string;
     questionsId: string;
@@ -528,19 +470,13 @@ export type AnsweredQuestionsByCaseIdAndCreatedAtQuery = {
     updatedAt: string | null;
     optionId: string | null;
     isCorrect: boolean | null;
-    questionData: Array<{
-      __typename: "QuestionData";
-      questionId: string | null;
-      selectedOptionId: string | null;
-      correctAnswerId: string | null;
-    } | null> | null;
   } | null> | null;
   nextToken: string | null;
 };
 
 export type OnCreateQuizEventSubscription = {
   __typename: "QuizEvent";
-  id: string;
+  id: string | null;
   caseId: string;
   instanceId: string;
   createdAt: string | null;
@@ -552,7 +488,7 @@ export type OnCreateQuizEventSubscription = {
     __typename: "ModelAnsweredQuestionsConnection";
     items: Array<{
       __typename: "AnsweredQuestions";
-      id: string;
+      id: string | null;
       instanceId: string;
       caseId: string;
       questionsId: string;
@@ -560,12 +496,6 @@ export type OnCreateQuizEventSubscription = {
       updatedAt: string | null;
       optionId: string | null;
       isCorrect: boolean | null;
-      questionData: Array<{
-        __typename: "QuestionData";
-        questionId: string | null;
-        selectedOptionId: string | null;
-        correctAnswerId: string | null;
-      } | null> | null;
     } | null> | null;
     nextToken: string | null;
   } | null;
@@ -575,7 +505,7 @@ export type OnCreateQuizEventSubscription = {
 
 export type OnUpdateQuizEventSubscription = {
   __typename: "QuizEvent";
-  id: string;
+  id: string | null;
   caseId: string;
   instanceId: string;
   createdAt: string | null;
@@ -587,7 +517,7 @@ export type OnUpdateQuizEventSubscription = {
     __typename: "ModelAnsweredQuestionsConnection";
     items: Array<{
       __typename: "AnsweredQuestions";
-      id: string;
+      id: string | null;
       instanceId: string;
       caseId: string;
       questionsId: string;
@@ -595,12 +525,6 @@ export type OnUpdateQuizEventSubscription = {
       updatedAt: string | null;
       optionId: string | null;
       isCorrect: boolean | null;
-      questionData: Array<{
-        __typename: "QuestionData";
-        questionId: string | null;
-        selectedOptionId: string | null;
-        correctAnswerId: string | null;
-      } | null> | null;
     } | null> | null;
     nextToken: string | null;
   } | null;
@@ -610,7 +534,7 @@ export type OnUpdateQuizEventSubscription = {
 
 export type OnDeleteQuizEventSubscription = {
   __typename: "QuizEvent";
-  id: string;
+  id: string | null;
   caseId: string;
   instanceId: string;
   createdAt: string | null;
@@ -622,7 +546,7 @@ export type OnDeleteQuizEventSubscription = {
     __typename: "ModelAnsweredQuestionsConnection";
     items: Array<{
       __typename: "AnsweredQuestions";
-      id: string;
+      id: string | null;
       instanceId: string;
       caseId: string;
       questionsId: string;
@@ -630,12 +554,6 @@ export type OnDeleteQuizEventSubscription = {
       updatedAt: string | null;
       optionId: string | null;
       isCorrect: boolean | null;
-      questionData: Array<{
-        __typename: "QuestionData";
-        questionId: string | null;
-        selectedOptionId: string | null;
-        correctAnswerId: string | null;
-      } | null> | null;
     } | null> | null;
     nextToken: string | null;
   } | null;
@@ -645,7 +563,7 @@ export type OnDeleteQuizEventSubscription = {
 
 export type OnCreateAnsweredQuestionsSubscription = {
   __typename: "AnsweredQuestions";
-  id: string;
+  id: string | null;
   instanceId: string;
   caseId: string;
   questionsId: string;
@@ -653,17 +571,11 @@ export type OnCreateAnsweredQuestionsSubscription = {
   updatedAt: string | null;
   optionId: string | null;
   isCorrect: boolean | null;
-  questionData: Array<{
-    __typename: "QuestionData";
-    questionId: string | null;
-    selectedOptionId: string | null;
-    correctAnswerId: string | null;
-  } | null> | null;
 };
 
 export type OnUpdateAnsweredQuestionsSubscription = {
   __typename: "AnsweredQuestions";
-  id: string;
+  id: string | null;
   instanceId: string;
   caseId: string;
   questionsId: string;
@@ -671,17 +583,11 @@ export type OnUpdateAnsweredQuestionsSubscription = {
   updatedAt: string | null;
   optionId: string | null;
   isCorrect: boolean | null;
-  questionData: Array<{
-    __typename: "QuestionData";
-    questionId: string | null;
-    selectedOptionId: string | null;
-    correctAnswerId: string | null;
-  } | null> | null;
 };
 
 export type OnDeleteAnsweredQuestionsSubscription = {
   __typename: "AnsweredQuestions";
-  id: string;
+  id: string | null;
   instanceId: string;
   caseId: string;
   questionsId: string;
@@ -689,12 +595,6 @@ export type OnDeleteAnsweredQuestionsSubscription = {
   updatedAt: string | null;
   optionId: string | null;
   isCorrect: boolean | null;
-  questionData: Array<{
-    __typename: "QuestionData";
-    questionId: string | null;
-    selectedOptionId: string | null;
-    correctAnswerId: string | null;
-  } | null> | null;
 };
 
 @Injectable({
@@ -728,12 +628,6 @@ export class APIService {
               updatedAt
               optionId
               isCorrect
-              questionData {
-                __typename
-                questionId
-                selectedOptionId
-                correctAnswerId
-              }
             }
             nextToken
           }
@@ -779,12 +673,6 @@ export class APIService {
               updatedAt
               optionId
               isCorrect
-              questionData {
-                __typename
-                questionId
-                selectedOptionId
-                correctAnswerId
-              }
             }
             nextToken
           }
@@ -830,12 +718,6 @@ export class APIService {
               updatedAt
               optionId
               isCorrect
-              questionData {
-                __typename
-                questionId
-                selectedOptionId
-                correctAnswerId
-              }
             }
             nextToken
           }
@@ -869,12 +751,6 @@ export class APIService {
           updatedAt
           optionId
           isCorrect
-          questionData {
-            __typename
-            questionId
-            selectedOptionId
-            correctAnswerId
-          }
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -905,12 +781,6 @@ export class APIService {
           updatedAt
           optionId
           isCorrect
-          questionData {
-            __typename
-            questionId
-            selectedOptionId
-            correctAnswerId
-          }
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -941,12 +811,6 @@ export class APIService {
           updatedAt
           optionId
           isCorrect
-          questionData {
-            __typename
-            questionId
-            selectedOptionId
-            correctAnswerId
-          }
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -986,12 +850,6 @@ export class APIService {
               updatedAt
               optionId
               isCorrect
-              questionData {
-                __typename
-                questionId
-                selectedOptionId
-                correctAnswerId
-              }
             }
             nextToken
           }
@@ -1073,12 +931,6 @@ export class APIService {
           updatedAt
           optionId
           isCorrect
-          questionData {
-            __typename
-            questionId
-            selectedOptionId
-            correctAnswerId
-          }
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -1107,12 +959,6 @@ export class APIService {
             updatedAt
             optionId
             isCorrect
-            questionData {
-              __typename
-              questionId
-              selectedOptionId
-              correctAnswerId
-            }
           }
           nextToken
         }
@@ -1221,12 +1067,6 @@ export class APIService {
             updatedAt
             optionId
             isCorrect
-            questionData {
-              __typename
-              questionId
-              selectedOptionId
-              correctAnswerId
-            }
           }
           nextToken
         }
@@ -1258,7 +1098,7 @@ export class APIService {
     );
   }
   OnCreateQuizEventListener: Observable<
-    OnCreateQuizEventSubscription
+    SubscriptionResponse<OnCreateQuizEventSubscription>
   > = API.graphql(
     graphqlOperation(
       `subscription OnCreateQuizEvent {
@@ -1284,12 +1124,6 @@ export class APIService {
               updatedAt
               optionId
               isCorrect
-              questionData {
-                __typename
-                questionId
-                selectedOptionId
-                correctAnswerId
-              }
             }
             nextToken
           }
@@ -1298,10 +1132,10 @@ export class APIService {
         }
       }`
     )
-  ) as Observable<OnCreateQuizEventSubscription>;
+  ) as Observable<SubscriptionResponse<OnCreateQuizEventSubscription>>;
 
   OnUpdateQuizEventListener: Observable<
-    OnUpdateQuizEventSubscription
+    SubscriptionResponse<OnUpdateQuizEventSubscription>
   > = API.graphql(
     graphqlOperation(
       `subscription OnUpdateQuizEvent {
@@ -1327,12 +1161,6 @@ export class APIService {
               updatedAt
               optionId
               isCorrect
-              questionData {
-                __typename
-                questionId
-                selectedOptionId
-                correctAnswerId
-              }
             }
             nextToken
           }
@@ -1341,10 +1169,10 @@ export class APIService {
         }
       }`
     )
-  ) as Observable<OnUpdateQuizEventSubscription>;
+  ) as Observable<SubscriptionResponse<OnUpdateQuizEventSubscription>>;
 
   OnDeleteQuizEventListener: Observable<
-    OnDeleteQuizEventSubscription
+    SubscriptionResponse<OnDeleteQuizEventSubscription>
   > = API.graphql(
     graphqlOperation(
       `subscription OnDeleteQuizEvent {
@@ -1370,12 +1198,6 @@ export class APIService {
               updatedAt
               optionId
               isCorrect
-              questionData {
-                __typename
-                questionId
-                selectedOptionId
-                correctAnswerId
-              }
             }
             nextToken
           }
@@ -1384,10 +1206,10 @@ export class APIService {
         }
       }`
     )
-  ) as Observable<OnDeleteQuizEventSubscription>;
+  ) as Observable<SubscriptionResponse<OnDeleteQuizEventSubscription>>;
 
   OnCreateAnsweredQuestionsListener: Observable<
-    OnCreateAnsweredQuestionsSubscription
+    SubscriptionResponse<OnCreateAnsweredQuestionsSubscription>
   > = API.graphql(
     graphqlOperation(
       `subscription OnCreateAnsweredQuestions {
@@ -1401,19 +1223,13 @@ export class APIService {
           updatedAt
           optionId
           isCorrect
-          questionData {
-            __typename
-            questionId
-            selectedOptionId
-            correctAnswerId
-          }
         }
       }`
     )
-  ) as Observable<OnCreateAnsweredQuestionsSubscription>;
+  ) as Observable<SubscriptionResponse<OnCreateAnsweredQuestionsSubscription>>;
 
   OnUpdateAnsweredQuestionsListener: Observable<
-    OnUpdateAnsweredQuestionsSubscription
+    SubscriptionResponse<OnUpdateAnsweredQuestionsSubscription>
   > = API.graphql(
     graphqlOperation(
       `subscription OnUpdateAnsweredQuestions {
@@ -1427,19 +1243,13 @@ export class APIService {
           updatedAt
           optionId
           isCorrect
-          questionData {
-            __typename
-            questionId
-            selectedOptionId
-            correctAnswerId
-          }
         }
       }`
     )
-  ) as Observable<OnUpdateAnsweredQuestionsSubscription>;
+  ) as Observable<SubscriptionResponse<OnUpdateAnsweredQuestionsSubscription>>;
 
   OnDeleteAnsweredQuestionsListener: Observable<
-    OnDeleteAnsweredQuestionsSubscription
+    SubscriptionResponse<OnDeleteAnsweredQuestionsSubscription>
   > = API.graphql(
     graphqlOperation(
       `subscription OnDeleteAnsweredQuestions {
@@ -1453,14 +1263,8 @@ export class APIService {
           updatedAt
           optionId
           isCorrect
-          questionData {
-            __typename
-            questionId
-            selectedOptionId
-            correctAnswerId
-          }
         }
       }`
     )
-  ) as Observable<OnDeleteAnsweredQuestionsSubscription>;
+  ) as Observable<SubscriptionResponse<OnDeleteAnsweredQuestionsSubscription>>;
 }

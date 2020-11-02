@@ -1,81 +1,121 @@
 <div *ngIf="currentQuestion as question">
-
   <mat-card>
     <ion-text class="dark-text">
-      <h3 class="ion-padding">Question: #{{count +1 }}</h3>
-
-      <h4>
-        {{ question.text }}
-      </h4>
+      <h3 class="ion-padding">Question: #{{ count + 1 }}</h3>
+      <div>
+        <div *ngIf="question.questionExtrasTop as qTopExtra">
+          <h4>{{ qTopExtra[0] }}</h4>
+          <div class="extras" *ngFor="let qTop of qTopExtra">
+            <p *ngIf="qTop !== qTopExtra[0]">{{ qTop }}</p>
+          </div>
+        </div>
+        <h4>
+          {{ question.text }}
+        </h4>
+        <div *ngIf="question.questionExtrasBottom as qBottomExtra">
+          <h4>{{ qBottomExtra[0] }}</h4>
+          <div class="extras" *ngFor="let qBottom of qBottomExtra">
+            <p *ngIf="qBottom !== qBottomExtra[0]">{{ qBottom }}</p>
+          </div>
+        </div>
+      </div>
     </ion-text>
-    <ion-button *ngIf="isSubmitted && question.responseId" class="right" fill="outline" (click)="open=!open">
+    <ion-button
+      *ngIf="isSubmitted && question.responseId"
+      class="right"
+      fill="outline"
+      (click)="open = !open"
+    >
       <span *ngIf="!open"> VIEW YOUR RESPONSE</span>
       <span *ngIf="open"> HIDE YOUR RESPONSE</span>
     </ion-button>
     <div [hidden]="!open && question.responseId">
       <mat-card-content>
-
-
         <mat-radio-group [(ngModel)]="selectedOption">
           <ion-list class="ion-padding" *ngFor="let option of question.options">
-            <mat-radio-button [checked]='question.responseId===option.id && isSubmitted'
-              [disabled]="question.responseId===option.id && isSubmitted" slot="start" color="primary"
-              [value]="option.id">
-
+            <mat-radio-button
+              [checked]="question.responseId === option.id && isSubmitted"
+              [disabled]="question.responseId === option.id && isSubmitted"
+              slot="start"
+              color="primary"
+              [value]="option.id"
+            >
               <ion-text color="primary">
-                <h5 class="max-width zero wrap-mat-radio-label" [ngClass]="{
-                'green-text':selectedOption=== option.id && option.id===question.correctAnswerId &&
-                question.isCorrect , 'red-text':selectedOption === option.id && option.id !==
-                question.correctAnswerId && question.responseId
-              }" [innerHTML]="option.text"></h5>
+                <h5
+                  class="max-width zero wrap-mat-radio-label"
+                  [ngClass]="{
+                    'green-text':
+                      selectedOption === option.id &&
+                      option.id === question.correctAnswerId &&
+                      question.isCorrect,
+                    'red-text':
+                      selectedOption === option.id &&
+                      option.id !== question.correctAnswerId &&
+                      question.responseId
+                  }"
+                  [innerHTML]="option.text"
+                ></h5>
               </ion-text>
             </mat-radio-button>
           </ion-list>
-
         </mat-radio-group>
       </mat-card-content>
-      <ion-button shape="round" [hidden]="currentQuestion.responseId" [disabled]="!selectedOption"
-        (click)="submit(question)" color="primary">
+      <ion-button
+        shape="round"
+        [hidden]="currentQuestion.responseId"
+        [disabled]="!selectedOption"
+        (click)="submit(question)"
+        color="primary"
+      >
         Submit
       </ion-button>
     </div>
-
   </mat-card>
 </div>
 
-<div class="solution" *ngIf="currentQuestion.responseId && currentQuestion as question">
-
-  <ion-list *ngFor="let option of question.options; let i =index">
-    <div class="items" [ngClass]="(i%2 === 0)?'even' : 'odd' ">
-
+<div
+  class="solution"
+  *ngIf="currentQuestion.responseId && currentQuestion as question"
+>
+  <ion-list *ngFor="let option of question.options; let i = index">
+    <div class="items" [ngClass]="i % 2 === 0 ? 'even' : 'odd'">
       <ion-row class="ion-padding-top">
         <ion-col size="1">
-          <span *ngIf=" question.correctAnswerId === option.id">
-            <ion-icon size="large" class="green-text" name="checkmark-outline"></ion-icon>
+          <span *ngIf="question.correctAnswerId === option.id">
+            <ion-icon
+              size="large"
+              class="green-text"
+              name="checkmark-outline"
+            ></ion-icon>
           </span>
           <span *ngIf="question.correctAnswerId !== option.id">
-            <ion-icon size="large" class="red-text" name="close-outline"></ion-icon>
+            <ion-icon
+              size="large"
+              class="red-text"
+              name="close-outline"
+            ></ion-icon>
           </span>
         </ion-col>
 
         <ion-col size="11">
-          <p class="max-width" [ngClass]="{
-                'green-text': question.correctAnswerId === option.id,
-                'red-text': question.correctAnswerId !== option.id
-              }" [innerHTML]=" option.text "></p>
+          <p
+            class="max-width"
+            [ngClass]="{
+              'green-text': question.correctAnswerId === option.id,
+              'red-text': question.correctAnswerId !== option.id
+            }"
+            [innerHTML]="option.text"
+          ></p>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col offset="1">
-
           <ion-label class="rational">Rationale:</ion-label>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col offset="1">
-
-          <ion-label class="rational"> {{option.info}}</ion-label>
-
+          <ion-label class="rational"> {{ option.info }}</ion-label>
         </ion-col>
       </ion-row>
 
@@ -88,26 +128,35 @@
         </ion-col>
       </ion-row> -->
       <ion-row>
-        <ion-col class="fadein grow" offset="1" size="3" *ngIf="option.content.length>0">
+        <ion-col
+          class="fadein grow"
+          offset="1"
+          size="3"
+          *ngIf="option.content.length > 0"
+        >
           <div>
-
-            <ion-button color="primary" fill="outline" (click)="navigateToContent(option.content)">
-              {{option.buttonText}}
+            <ion-button
+              color="primary"
+              fill="outline"
+              (click)="navigateToContent(option.content)"
+            >
+              {{ option.buttonText }}
             </ion-button>
           </div>
         </ion-col>
       </ion-row>
-
     </div>
-
   </ion-list>
-  <div *ngIf="currentQuestion.bonusContent.length>0" class="bonus-content">
-
-
-    <ion-button id="learn-more" color="primary" expand="block" shape="round" fill="solid"
-      (click)="navigateToContent(currentQuestion.bonusContent)">
-      {{currentQuestion.bonusButtonText}}
+  <div *ngIf="currentQuestion.bonusContent.length > 0" class="bonus-content">
+    <ion-button
+      id="learn-more"
+      color="primary"
+      expand="block"
+      shape="round"
+      fill="solid"
+      (click)="navigateToContent(currentQuestion.bonusContent)"
+    >
+      {{ currentQuestion.bonusButtonText }}
     </ion-button>
-
   </div>
 </div>

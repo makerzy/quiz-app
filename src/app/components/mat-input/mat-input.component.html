@@ -1,0 +1,30 @@
+<form *ngIf="data && formControl && data.type !== 'textarea'">
+  <mat-form-field class="max-width">
+    <mat-label>{{ data.label }}</mat-label>
+    <input (input)="enter($event)" matInput [formControl]="formControl" [readonly]="data.readonly"
+      [ngClass]="{'ion-text-capitalize': data.capitalize, 'ion-text-uppercase': data.uppercase}">
+    <mat-error *ngIf="formControl.hasError('email') && !formControl.hasError('required')">
+      Please enter a valid email address
+    </mat-error>
+    <mat-error *ngIf="formControl.hasError('required')">
+      {{ data.label }} is <strong>required</strong>
+    </mat-error>
+    <mat-error *ngIf="formControl.hasError('max')">
+      {{ data.label }} cannot be higher than {{ data.max }}
+    </mat-error>
+    <mat-error *ngIf="formControl.hasError('min')">
+      {{ data.label }} cannot be lower than {{ data.min }}
+    </mat-error>
+    <mat-error *ngIf="formControl.hasError('pattern') && data.type === 'number'">
+      {{ data.label }} must be a <strong>whole number</strong>
+    </mat-error>
+  </mat-form-field>
+</form>
+
+<form *ngIf="data && formControl && data.type === 'textarea'">
+  <mat-form-field class="max-width">
+    <mat-label>{{ data.label }}</mat-label>
+    <textarea cdkTextareaAutosize [rows]="data.rows" matInput [formControl]="formControl" [readonly]="data.readonly"
+      (input)="enter($event)"></textarea>
+  </mat-form-field>
+</form>

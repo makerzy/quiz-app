@@ -19,11 +19,6 @@ subscription OnCreateQuizEvent {
         updatedAt
         optionId
         isCorrect
-        questionData {
-          questionId
-          selectedOptionId
-          correctAnswerId
-        }
       }
       nextToken
     }
@@ -51,11 +46,6 @@ subscription OnUpdateQuizEvent {
         updatedAt
         optionId
         isCorrect
-        questionData {
-          questionId
-          selectedOptionId
-          correctAnswerId
-        }
       }
       nextToken
     }
@@ -83,11 +73,6 @@ subscription OnDeleteQuizEvent {
         updatedAt
         optionId
         isCorrect
-        questionData {
-          questionId
-          selectedOptionId
-          correctAnswerId
-        }
       }
       nextToken
     }
@@ -105,11 +90,6 @@ subscription OnCreateAnsweredQuestions {
     updatedAt
     optionId
     isCorrect
-    questionData {
-      questionId
-      selectedOptionId
-      correctAnswerId
-    }
   }
 }
 subscription OnUpdateAnsweredQuestions {
@@ -122,11 +102,6 @@ subscription OnUpdateAnsweredQuestions {
     updatedAt
     optionId
     isCorrect
-    questionData {
-      questionId
-      selectedOptionId
-      correctAnswerId
-    }
   }
 }
 subscription OnDeleteAnsweredQuestions {
@@ -139,10 +114,5 @@ subscription OnDeleteAnsweredQuestions {
     updatedAt
     optionId
     isCorrect
-    questionData {
-      questionId
-      selectedOptionId
-      correctAnswerId
-    }
   }
 }

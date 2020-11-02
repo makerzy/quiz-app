@@ -22,11 +22,6 @@ mutation CreateQuizEvent(
         updatedAt
         optionId
         isCorrect
-        questionData {
-          questionId
-          selectedOptionId
-          correctAnswerId
-        }
       }
       nextToken
     }
@@ -57,11 +52,6 @@ mutation UpdateQuizEvent(
         updatedAt
         optionId
         isCorrect
-        questionData {
-          questionId
-          selectedOptionId
-          correctAnswerId
-        }
       }
       nextToken
     }
@@ -92,11 +82,6 @@ mutation DeleteQuizEvent(
         updatedAt
         optionId
         isCorrect
-        questionData {
-          questionId
-          selectedOptionId
-          correctAnswerId
-        }
       }
       nextToken
     }
@@ -117,11 +102,6 @@ mutation CreateAnsweredQuestions(
     updatedAt
     optionId
     isCorrect
-    questionData {
-      questionId
-      selectedOptionId
-      correctAnswerId
-    }
   }
 }
 mutation UpdateAnsweredQuestions(
@@ -137,11 +117,6 @@ mutation UpdateAnsweredQuestions(
     updatedAt
     optionId
     isCorrect
-    questionData {
-      questionId
-      selectedOptionId
-      correctAnswerId
-    }
   }
 }
 mutation DeleteAnsweredQuestions(
@@ -157,10 +132,5 @@ mutation DeleteAnsweredQuestions(
     updatedAt
     optionId
     isCorrect
-    questionData {
-      questionId
-      selectedOptionId
-      correctAnswerId
-    }
   }
 }

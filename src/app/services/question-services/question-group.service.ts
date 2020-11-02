@@ -15,6 +15,12 @@ export class QuestionGroupService {
       id: `thighKneePain_01`,
       questionIds: [`1`, `2`, `3`, `4`],
     },
+    {
+      topic: questionGroup["topic_shoulderPain"],
+      case: questionGroup["case_shoulderPain"],
+      id: `shoulderPain_01`,
+      questionIds: [`1`, `2`, `3`, `4`, `5`],
+    },
   ];
   constructor(private questionService: QuestionListService) {
     console.log("Question service");
@@ -31,13 +37,16 @@ export class QuestionGroupService {
       {},
       this.questionGroups.find(({ id }) => id === _id)
     );
-    const questions = [] as Question[];
+    let questions = [] as Question[];
 
-    questionGroup.questionIds.forEach((id) =>
-      questions.push(
-        Object.assign({}, this.questionService.getQuestionById(id))
-      )
-    );
+    // questionGroup.questionIds.forEach((id) =>
+    //   questions.push(
+    //     Object.assign({}, this.questionService.getQuestionById(id))
+    //   )
+    // );
+
+    questions = [...this.questionService.getQuestionsByGroupId(_id)];
+
     questionGroup.questions = questions;
     return questionGroup;
   }

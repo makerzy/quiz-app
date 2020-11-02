@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { NavService } from "./services/nav.service";
 import { URLParams } from "src/app/interfaces/question.interface";
+import { AuthService } from "./services/auth.service";
 
 //https://jseducation-dev.web.app?questionGroupId=pain
 
@@ -12,17 +13,22 @@ import { URLParams } from "src/app/interfaces/question.interface";
 export class AppComponent {
   urlParams = {} as URLParams;
 
-  constructor(private navService: NavService) {
+  constructor(private navService: NavService, private auth: AuthService) {
     this.getUrlParms();
     this.initializeApp();
   }
 
   async initializeApp() {
-    this.navService.setRoot("home");
+    document.URL.includes("login")
+      ? this.navService.setRoot("login")
+      : this.navService.setRoot("home");
 
-    if (this.urlParams.userEmail) {
-      // save email to database
-    }
+    const user = await this.auth.guestLogin();
+
+    console.log(user);
+
+    // const res = await this.auth.submitNewPassword(user, 'guest167-', []);
+    // console.log(res);
 
     if (this.urlParams.questionGroupId) {
       return this.navService.setRoot("question", {

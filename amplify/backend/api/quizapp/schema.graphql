@@ -28,7 +28,7 @@ type QuizEvent
     fields: ["caseId", "createdAt"]
     queryField: "quizEventsByCaseIdAndCreatedAt"
   ) {
-  id: ID!
+  id: ID
   caseId: String!
   instanceId: String!
   createdAt: String
@@ -51,7 +51,7 @@ type AnsweredQuestions
     fields: ["caseId", "createdAt"]
     queryField: "answeredQuestionsByCaseIdAndCreatedAt"
   ) {
-  id: ID!
+  id: ID
   instanceId: String!
   caseId: String!
   questionsId: String!
@@ -59,11 +59,4 @@ type AnsweredQuestions
   updatedAt: String
   optionId: String
   isCorrect: Boolean
-  questionData: [QuestionData]
-}
-
-type QuestionData {
-  questionId: String
-  selectedOptionId: String
-  correctAnswerId: String
 }

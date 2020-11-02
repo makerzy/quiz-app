@@ -11,6 +11,7 @@ import { TruncateTextPipe } from "src/app/truncate-text.pipe";
 import { SearchComponent } from "src/app/components/search/search.component";
 import { PrevNextComponent } from "src/app/components/prev-next/prev-next.component";
 import { FilterComponent } from "src/app/components/filter/filter.component";
+import { MatInputComponent } from "../mat-input/mat-input.component";
 
 const components = [
   QuestionsComponent,
@@ -20,6 +21,7 @@ const components = [
   SearchComponent,
   PrevNextComponent,
   FilterComponent,
+  MatInputComponent,
 ];
 
 @NgModule({

@@ -1,16 +1,11 @@
 import { Component, OnInit } from "@angular/core";
-import {
-  Question,
-  QuestionGroup,
-  URLParams,
-} from "src/app/interfaces/question.interface";
+import { Question, QuestionGroup } from "src/app/interfaces/question.interface";
 import { QuestionListService } from "src/app/services/question-services/question-list.service";
 import { translations } from "src/app/services/language-service/translations";
 import { NavService } from "src/app/services/nav.service";
 import { NavType } from "src/app/components/prev-next/prev-next.component";
 import { QuestionGroupService } from "src/app/services/question-services/question-group.service";
 import { MomentService } from "src/app/services/moment.service";
-import { APIQuizEventService } from "src/app/services/dynamo/api.quiz-event.service";
 
 @Component({
   selector: "app-test-page",

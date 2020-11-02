@@ -1,9 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import {
-  Question,
-  QuestionGroup,
-  URLParams,
-} from "src/app/interfaces/question.interface";
+import { Question, QuestionGroup } from "src/app/interfaces/question.interface";
 import { QuestionListService } from "src/app/services/question-services/question-list.service";
 import { translations } from "src/app/services/language-service/translations";
 import { NavService } from "src/app/services/nav.service";
@@ -11,7 +7,7 @@ import { NavType } from "src/app/components/prev-next/prev-next.component";
 import { QuestionGroupService } from "src/app/services/question-services/question-group.service";
 import { MomentService } from "src/app/services/moment.service";
 import { APIQuizEventService } from "src/app/services/dynamo/api.quiz-event.service";
-
+import { v4 as uuid } from "uuid";
 @Component({
   selector: "app-question",
   templateUrl: "./question.page.html",
@@ -27,9 +23,10 @@ export class QuestionPage implements OnInit {
   completed: boolean = false;
   answered: number;
   selectedOptions: any[] = [];
-
+  isCorrect: boolean = false;
   questionHeader: string = translations.en.questions.caseBackground;
   urlParams: string;
+  email: string;
   constructor(
     private questionListService: QuestionListService,
     private nav: NavService,
@@ -71,9 +68,19 @@ export class QuestionPage implements OnInit {
   retrieveAnswered(_answered: number) {
     this.answered = _answered;
   }
-  retrieveQuestionData(data: any) {
-    this.selectedOptions.push(data);
-    console.log("selectedOptions: ", this.selectedOptions);
+  async retrieveQuestionData(data: any) {
+    console.log("selectedOptions: ", data);
+    const { questionId, selectedOptionId, correctAnswerId, isCorrect } = data;
+    console.log(isCorrect, questionId, selectedOptionId, correctAnswerId);
+    await this.questionEventService.createAnsweredQuestions({
+      instanceId: `${this.questionGroupId}-${uuid()}`,
+      caseId: this.questionGroupId,
+      questionsId: questionId,
+      optionId: selectedOptionId,
+      isCorrect,
+      createdAt: this.moment.getMoment(),
+      updatedAt: this.moment.getMoment(),
+    });
   }
   setCurrentQuestion() {
     this.currentQuestion = this.questions[this.count];
@@ -105,31 +112,37 @@ export class QuestionPage implements OnInit {
     ) {
       this.count = 0;
       this.setCurrentQuestion();
-      let firstName = this.urlParams["firstName"] || "";
-      let lastName = this.urlParams["lastName"] || "";
-      let email = this.urlParams["email"] || "";
-      let questionGroupId = this.urlParams["questionGroupId"] || "";
-
       this.endTest();
-      // this.questionEventService.createQuizEvent({
-      //   caseId: questionGroupId,
-      //   instanceId: `${this.questionGroupId}-${this.moment.getMoment()}`,
-      //   createdAt: this.moment.getMoment(),
-      //   userEmail,
-      //   first: firstName,
-      //   last: lastName,
-      //   score: this.score,
-      //   finished: this.count === this.questions.length ? true : false,
-      //   questionData: this.selectedOptions;
-      // });
     }
     return this.setCurrentQuestion();
   }
 
-  endTest() {
-    return this.nav.setRoot("review", {
+  async endTest() {
+    let firstName = this.urlParams["firstName"] || "imc";
+    let lastName = this.urlParams["lastName"] || "imcQuiz";
+    this.email = this.urlParams["email"] || "imc.quiz@imcpt.com";
+    this.nav.setRoot("review", {
       queryParams: { score: this.score, total: this.questions.length },
     });
+    await this.questionEventService.createQuizEvent({
+      caseId: this.questionGroupId,
+      instanceId: `${this.questionGroupId}-${uuid()}`,
+      userEmail: this.email,
+      first: firstName,
+      last: lastName,
+      score: this.score,
+      finished: this.answered === this.questions.length ? true : false,
+    });
+    console.log(
+      firstName,
+      lastName,
+      this.email,
+      this.questionGroupId,
+      this.score,
+      this.answered,
+      this.questions.length
+    );
+    return true;
   }
   retrieveQuestionResponse(question: Question) {
     console.log("question: ", question);
